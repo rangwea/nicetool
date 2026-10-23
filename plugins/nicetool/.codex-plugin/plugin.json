@@ -1,0 +1,27 @@
+{
+  "name": "nicetool",
+  "version": "0.1.0",
+  "description": "Create, preview, publish, inspect, and troubleshoot NiceTool tools from Codex.",
+  "author": {
+    "name": "NiceTool Team"
+  },
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "NiceTool",
+    "shortDescription": "Manage the complete NiceTool tool lifecycle.",
+    "longDescription": "Create compact single-file NiceTool tools, preview and debug them, publish approved versions, inspect projects and data sources, and read runtime logs.",
+    "developerName": "NiceTool Team",
+    "category": "Productivity",
+    "capabilities": [
+      "Create",
+      "Preview",
+      "Publish",
+      "Debug"
+    ],
+    "defaultPrompt": [
+      "Create a NiceTool query tool for this workflow.",
+      "Preview and debug my NiceTool tool.",
+      "List the available NiceTool projects and tools."
+    ]
+  }
+}

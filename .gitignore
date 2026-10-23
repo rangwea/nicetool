@@ -1,0 +1,31 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+.env
+.env.*
+!.env.example
+.chainlit/
+logs/
+.vscode/
+.files/
+
+.playwright-mcp/
+
+.DS_Store
+
+tools/
+.nicegui/
+
+# Local caches and generated downloads
+.ruff_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+files/

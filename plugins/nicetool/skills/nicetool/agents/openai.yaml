@@ -1,0 +1,6 @@
+interface:
+  display_name: "NiceTool"
+  short_description: "Build NiceTool utilities with managed variables safely"
+  default_prompt: "Use $nicetool to create or modify a NiceTool utility, use platform variables and data sources correctly, preview when verification is requested, and publish only with explicit authorization for the target and environment, reusing existing authorization."
+policy:
+  allow_implicit_invocation: true

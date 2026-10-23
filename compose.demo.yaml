@@ -1,0 +1,53 @@
+name: nicetool-demo
+services:
+  db:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: nicetool_demo
+      MYSQL_USER: demo
+      MYSQL_PASSWORD: local-demo-only
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+    volumes:
+      - demo-db:/var/lib/mysql
+    healthcheck:
+      test: [CMD-SHELL, 'MYSQL_PWD=$$MYSQL_PASSWORD mysql -h 127.0.0.1 -u demo nicetool_demo -e "SELECT 1"']
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+  app:
+    build: .
+    ports:
+      - '127.0.0.1:${DEMO_PORT:-8000}:8000'
+    environment:
+      ENV_FILE: /dev/null
+      MYSQL_HOST: db
+      MYSQL_PORT: '3306'
+      MYSQL_DATABASE: nicetool_demo
+      MYSQL_USER: demo
+      MYSQL_PASSWORD: local-demo-only
+      HOST: 0.0.0.0
+      PORT: '8000'
+      PROJECT_PATH: ''
+      AUTH_ENABLED: 'false'
+      STORAGE_SECRET: local-demo-session-not-for-production
+      NICETOOL_DEMO: 'true'
+      LANGUAGE: '${LANGUAGE:-zh-CN}'
+      DEMO_PUBLIC_URL: 'http://localhost:${DEMO_PORT:-8000}'
+    depends_on:
+      db:
+        condition: service_healthy
+    command: [sh, -c, 'python -m scripts.seed_demo && exec python main.py']
+    volumes:
+      - demo-logs:/app/logs
+      - demo-previews:/tmp/nicegui_client_tools
+    healthcheck:
+      test: [CMD, curl, --fail, --silent, 'http://127.0.0.1:8000/health']
+      interval: 5s
+      timeout: 5s
+      retries: 30
+      start_period: 30s
+volumes:
+  demo-db:
+  demo-logs:
+  demo-previews:

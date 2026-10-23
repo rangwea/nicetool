@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+.eggs/
+*.egg-info/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Git
+.git/
+.gitignore
+
+# Logs
+logs/
+*.log
+
+# Tests
+tests/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Misc
+.env.local
+.DS_Store
+*.md
+!plugins/nicetool/skills/nicetool/SKILL.md
+!plugins/nicetool/skills/nicetool/references/**/*.md
+.env
+.env.*
+!.env.example
+files/
+.gitworktrees/
+!README.md
+!.agents/skills/nicechart/**/*.md
+!.agents/skills/nicechart/SKILL.md

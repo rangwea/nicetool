@@ -1,0 +1,20 @@
+{
+  "name": "personal",
+  "interface": {
+    "displayName": "NiceTool Project Plugins"
+  },
+  "plugins": [
+    {
+      "name": "nicetool",
+      "source": {
+        "source": "local",
+        "path": "./plugins/nicetool"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}
