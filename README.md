@@ -135,6 +135,14 @@ docker run -d --name nicetool --env-file .env -p 8000:8000 nicetool
 - [API 导航](docs/api.md)
 - [开发与贡献](docs/contributing.md)
 
+## 项目网站
+
+双语静态官网位于 [`website/`](website/README.md)，包含预览与工具使用的真实 GIF 演示。仅使用合成数据；Codex Desktop 的创建与发布采用 AI 生成流程示意，工作台操作为真实录制。
+
+```bash
+python3 -m http.server 8088 --bind 127.0.0.1 --directory website
+```
+
 ## 开发者说明
 
 平台底层采用 Python、NiceGUI、FastAPI 和 MySQL。工具源码版本保存在数据库中，`tools/` 是可重建的运行缓存；工具代码在服务进程内执行，因此发布权限应授予可信开发者。

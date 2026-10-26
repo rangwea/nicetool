@@ -1,0 +1,18 @@
+{
+  "kind": "AI-generated workflow illustrations, not actual Codex Desktop screenshots or recordings",
+  "generated_on": "2026-10-26",
+  "generator": "imagegen",
+  "layout": "Adapted from user-supplied macOS Codex Desktop reference images: narrow icon rail, project sidebar, central conversation, bottom composer and embedded NiceTool Workspace. AI-generated, not an actual recording.",
+  "animation": "Explanatory step markers only; no recorded interactions are implied",
+  "assets": {
+    "create": {
+      "source": "create.png",
+      "sha256": "d9f2d95a106d0017bd62a5677a08ba0e336673046b5e95dceca6ea031156a133"
+    },
+    "publish": {
+      "source": "publish.png",
+      "sha256": "1920f1a8d7a484937da611ef5696ee37ff4171f1a9fbf1470d5b79a0330ce998"
+    }
+  },
+  "references": "Two user-supplied appearance references and a synthetic NiceTool Workspace screenshot. Raw user screenshots are not included in the repository; personal account and unrelated project details were replaced."
+}

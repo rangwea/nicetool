@@ -25,3 +25,25 @@ The platform MySQL database stores tool versions, accounts, and administration c
 ## Authentication
 
 `AUTH_ENABLED` defaults to `false`. When enabled, configure `AUTH_JWT_SECRET`. For HTTPS deployments, set `AUTH_REQUIRE_HTTPS_COOKIE=true`.
+
+## Configuration file selection
+
+Process environment variables override dotenv values. Names are case-insensitive. Restart after changing startup configuration.
+
+- `ENV_FILE` selects one or more comma-separated paths; later files override earlier ones.
+- Without `ENV_FILE`, the server loads `.env`, then `.env.${ENV_TYPE}`.
+- `ENV_TYPE` defaults to `prod`; supported values are `dev`, `uat` and `prod`. Missing files are not created automatically.
+- Use `ENV_FILE=.env uv run main.py` to load only `.env`.
+
+Server `ENV_TYPE` selects startup configuration. CLI `--env` selects a remote instance from client configuration; these are separate settings.
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `DEBUG` | `false` | Debug mode. |
+| `MYSQL_POOL_SIZE` | `10` | Persistent pool connections. |
+| `MYSQL_MAX_OVERFLOW` | `20` | Additional pool connections. |
+| `MYSQL_POOL_TIMEOUT` | `30` | Seconds waiting for a connection. |
+| `MYSQL_POOL_RECYCLE` | `3600` | Seconds before recycling a connection. |
+| `REQUEST_TIMEOUT` | `30` | Authentication HTTP timeout in seconds. |
+
+Authentication supports local accounts, OIDC and OAuth2; see [Authentication and permissions](oauth2-auth.md). Application styling is fixed in `core/styles.py`; there is no theme preference or generic settings-save page.

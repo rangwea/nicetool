@@ -1,7 +1,9 @@
-"""Build the static landing documentation page from localized docs/*.md files."""
+"""Build the static website documentation page from localized docs/*.md files."""
 
 from __future__ import annotations
 
+import posixpath
+import re
 from dataclasses import dataclass
 from html import escape
 from pathlib import Path
@@ -9,13 +11,12 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DOCS_DIR = ROOT / "docs"
 EN_DOCS_DIR = DOCS_DIR / "en"
-OUTPUT = ROOT / "landing" / "docs.html"
+OUTPUT = ROOT / "website" / "docs.html"
 
 DOC_ORDER = [
     "README.md",
     "nicetool-skill.md",
     "nicetool-skill-usage.md",
-    "nicechart-skill.md",
     "demo.md",
     "user-guide.md",
     "configuration.md",
@@ -27,7 +28,6 @@ DOC_ORDER = [
     "oauth2-auth.md",
     "nicetool-token-setup.md",
     "contributing.md",
-    "plans/2026-09-11-project-rbac-design.md",
 ]
 LANGUAGES = ("zh-CN", "en-US")
 DOC_ROOTS = {"zh-CN": DOCS_DIR, "en-US": EN_DOCS_DIR}
@@ -57,10 +57,50 @@ def ordered_paths() -> list[Path]:
     remaining = sorted(
         path.relative_to(DOCS_DIR)
         for path in DOCS_DIR.rglob("*.md")
-        if "en" not in path.relative_to(DOCS_DIR).parts
+        if not {"en", "plans"}.intersection(path.relative_to(DOCS_DIR).parts)
         and path.relative_to(DOCS_DIR) not in ordered
     )
     return ordered + remaining
+
+
+def website_links(markdown: str, current: Path) -> str:
+    """Route included Markdown documents within the static viewer."""
+    known = {path.as_posix() for path in ordered_paths() if (DOCS_DIR / path).exists()}
+
+    def replace(match):
+        label, target = match.groups()
+        path = target.split("#", 1)[0]
+        resolved = posixpath.normpath((current.parent / path).as_posix())
+        if resolved in known:
+            return f"[{label}](#{slug_for(Path(resolved))})"
+        if resolved.startswith("../docs/"):
+            source = resolved.removeprefix("../docs/").removeprefix("en/")
+            if source in known:
+                return f"[{label}](#{slug_for(Path(source))})"
+        if resolved.startswith("../") and Path(resolved).name in {
+            "README.md",
+            "README.en.md",
+        }:
+            return f"[{label}](#project)"
+        if resolved in {"../LICENSE", "LICENSE"}:
+            return f"[{label}](LICENSE)"
+        return match.group(0)
+
+    return re.sub(r"(?<!!)\[([^\]]+)\]\(([^)]+)\)", replace, markdown)
+
+
+def project_content(markdown: str) -> str:
+    """Omit repository badges and language navigation from the website article."""
+    return "\n".join(
+        line
+        for line in markdown.split("\n")
+        if not line.startswith("[![")
+        and line
+        not in {
+            "简体中文 | [English](README.en.md)",
+            "[简体中文](README.md) | English",
+        }
+    )
 
 
 def load_docs() -> list[LocalizedDoc]:
@@ -79,7 +119,7 @@ def load_docs() -> list[LocalizedDoc]:
                 if candidate.exists()
                 else fallback
             )
-            localized_markdown[lang] = markdown
+            localized_markdown[lang] = website_links(markdown, rel_path)
             localized_titles[lang] = title_for(markdown, rel_path)
         docs.append(
             LocalizedDoc(
@@ -89,6 +129,22 @@ def load_docs() -> list[LocalizedDoc]:
                 markdown=localized_markdown,
             )
         )
+    project_markdown = {
+        lang: website_links(
+            project_content((ROOT / filename).read_text(encoding="utf-8")),
+            Path("../README.md"),
+        )
+        for lang, filename in (("zh-CN", "README.md"), ("en-US", "README.en.md"))
+    }
+    docs.insert(
+        0,
+        LocalizedDoc(
+            slug="project",
+            path=Path("../README.md"),
+            titles={"zh-CN": "项目介绍与快速开始", "en-US": "Overview and quick start"},
+            markdown=project_markdown,
+        ),
+    )
     return docs
 
 
@@ -128,61 +184,33 @@ def render_page(docs: list[LocalizedDoc]) -> str:
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>NiceTool Docs - 静态文档</title>
-    <meta name="description" content="NiceTool 静态文档查看页，由 docs 目录 Markdown 构建生成，不依赖 NiceTool server。" />
-    <style>
-      :root {{ --ink:#111827; --muted:#5b6475; --line:#e5e7eb; --blue:#2563eb; --surface:#f8fafc; --code:#0f172a; }}
-      * {{ box-sizing: border-box; }}
-      body {{ margin:0; color:var(--ink); background:#fff; font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height:1.65; }}
-      a {{ color:inherit; text-decoration:none; }}
-      .wrap {{ width:min(1180px, calc(100% - 40px)); margin:0 auto; }}
-      .nav {{ position:sticky; top:0; z-index:10; border-bottom:1px solid rgba(229,231,235,.86); background:rgba(255,255,255,.92); backdrop-filter:blur(14px); }}
-      .nav-inner {{ min-height:72px; display:flex; align-items:center; justify-content:space-between; gap:24px; }}
-      .brand {{ display:flex; align-items:center; gap:22px; color:#111827; font-size:28px; font-weight:850; letter-spacing:-.03em; }}
-      .brand-mark {{ display:grid; width:72px; height:72px; place-items:center; border-radius:18px; color:#fff; background:#111827; font-size:32px; font-weight:850; letter-spacing:0; box-shadow:0 16px 34px rgba(17,24,39,.12); }}
-      .nav-links {{ display:flex; align-items:center; gap:18px; color:#4b5563; font-size:14px; font-weight:650; }}
-      .lang-switch {{ display:inline-flex; align-items:center; gap:4px; border:1px solid var(--line); border-radius:999px; padding:4px; background:#fff; }}
-      .lang-button {{ border:0; border-radius:999px; padding:5px 10px; color:#64748b; background:transparent; font:inherit; font-size:13px; font-weight:750; cursor:pointer; }}
-      .lang-button.active {{ color:#fff; background:var(--ink); }}
-      h1 {{ max-width:820px; margin:22px 0 12px; font-size:clamp(38px,5vw,58px); line-height:1.08; }}
-      .layout {{ display:grid; grid-template-columns:300px minmax(0,1fr); gap:28px; padding:28px 0 84px; }}
-      .sidebar {{ position:sticky; top:96px; height:calc(100vh - 120px); overflow:auto; border:1px solid var(--line); border-radius:16px; padding:10px; background:#fff; }}
-      .doc-link {{ display:block; width:100%; border:0; border-radius:10px; padding:11px 12px; color:#4b5563; background:transparent; font:inherit; font-weight:500; text-align:left; cursor:pointer; }}
-      .doc-link span {{ display:block; }}
-      .doc-link:hover, .doc-link.active {{ color:var(--ink); background:#eff6ff; }}
-      .viewer {{ min-width:0; border:1px solid var(--line); border-radius:18px; padding:34px; background:#fff; box-shadow:0 16px 48px rgba(15,23,42,.06); }}
-      .viewer h1, .viewer h2, .viewer h3, .viewer h4 {{ line-height:1.25; }}
-      .viewer h1 {{ margin-top:0; font-size:36px; }}
-      .viewer h2 {{ margin-top:34px; padding-top:24px; border-top:1px solid var(--line); font-size:26px; }}
-      .viewer h3 {{ margin-top:24px; font-size:20px; }}
-      .viewer h4 {{ margin-top:20px; font-size:16px; }}
-      .viewer p, .viewer li {{ color:#4b5563; }}
-      .viewer a {{ color:var(--blue); font-weight:700; }}
-      .viewer code {{ border-radius:6px; padding:2px 6px; background:#eef2f7; color:#0f172a; font-size:.92em; }}
-      .viewer pre {{ overflow:auto; border-radius:14px; padding:18px; background:var(--code); color:#e5e7eb; }}
-      .viewer pre code {{ padding:0; background:transparent; color:inherit; }}
-      .viewer blockquote {{ margin:18px 0; border-left:4px solid var(--blue); padding:2px 0 2px 16px; color:#475569; background:#f8fafc; }}
-      .viewer table {{ width:100%; border-collapse:collapse; margin:18px 0; }}
-      .viewer th, .viewer td {{ border:1px solid var(--line); padding:10px 12px; text-align:left; vertical-align:top; }}
-      .viewer th {{ background:#f8fafc; }}
-      .toolbar {{ display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:18px; color:#64748b; font-size:14px; }}
-      @media (max-width: 900px) {{ .layout {{ grid-template-columns:1fr; }} .sidebar {{ position:static; height:auto; max-height:420px; }} .nav-links {{ gap:12px; }} }}
-    </style>
+    <title>使用文档 — NiceTool</title>
+    <meta name="description" content="NiceTool 使用文档：快速开始、工具开发、配置与部署指南。" />
+    <meta name="theme-color" content="#f4f7f5" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css?v=20261026-docs-v1" />
+    <link rel="stylesheet" href="docs.css?v=20261026-docs-v1" />
   </head>
   <body>
-    <nav class="nav">
-      <div class="wrap nav-inner">
-        <a class="brand" href="./index.html" aria-label="NiceTool"><span class="brand-mark">N</span><span>NiceTool</span></a>
-        <div class="nav-links"><a href="./index.html#features" data-i18n="nav.features">平台能力</a><a href="./index.html#workflow" data-i18n="nav.workflow">工作流</a><a href="./docs.html" data-i18n="nav.docs">文档</a><div class="lang-switch" aria-label="Language"><button class="lang-button" type="button" data-lang="zh-CN">中</button><button class="lang-button" type="button" data-lang="en-US">EN</button></div></div>
-      </div>
-    </nav>
-    <main class="wrap layout">
-      <aside class="sidebar" aria-label="文档目录">
+    <a class="skip-link" href="#content" data-i18n="skip">跳至内容</a>
+    <header class="site-header">
+      <nav class="nav inner" aria-label="Main navigation">
+        <a class="brand" href="index.html" aria-label="NiceTool home"><span class="brand-mark">N</span>NiceTool</a>
+        <div class="nav-links" id="nav-links"><a href="index.html#demos" data-i18n="nav.demos">流程演示</a><a href="index.html#workflow" data-i18n="nav.workflow">如何工作</a><a href="docs.html" aria-current="page" data-i18n="nav.docs">使用文档</a></div>
+        <div class="nav-actions"><button class="language-switch" type="button" data-language-toggle aria-label="Switch to English">EN</button><a class="button button-small" href="#demo" data-i18n="nav.start">开始体验 ↗</a><button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">☰</button></div>
+      </nav>
+    </header>
+    <main class="inner docs-layout">
+      <aside class="docs-directory" aria-label="文档目录">
+        <button class="directory-toggle" type="button" aria-controls="doc-list" aria-expanded="false"><span data-i18n="directory">文档目录</span><span aria-hidden="true">⌄</span></button>
+        <div class="sidebar" id="doc-list">
+          <p class="eyebrow" data-i18n="directory">文档目录</p>
 {nav}
+        </div>
       </aside>
       <article class="viewer">
         <div class="toolbar"><span id="doc-title">{escape(first.titles["zh-CN"])}</span></div>
-        <div id="content"></div>
+        <div id="content" tabindex="-1"></div>
       </article>
     </main>
 
@@ -217,9 +245,9 @@ def render_page(docs: list[LocalizedDoc]) -> str:
           const rows = table.map((row) => row.split('|').slice(1, -1).map((cell) => cell.trim()));
           const header = rows[0];
           const body = rows.slice(2);
-          html += '<table><thead><tr>' + header.map((cell) => `<th>${{inline(cell)}}</th>`).join('') + '</tr></thead><tbody>';
+          html += '<div class="table-scroll"><table><thead><tr>' + header.map((cell) => `<th>${{inline(cell)}}</th>`).join('') + '</tr></thead><tbody>';
           html += body.map((row) => '<tr>' + row.map((cell) => `<td>${{inline(cell)}}</td>`).join('') + '</tr>').join('');
-          html += '</tbody></table>';
+          html += '</tbody></table></div>';
           table = [];
         }};
         const flushBlocks = () => {{ flushList(); flushTable(); }};
@@ -259,13 +287,20 @@ def render_page(docs: list[LocalizedDoc]) -> str:
         const source = document.getElementById(`doc-${{currentLanguage}}-${{currentDoc}}`);
         document.getElementById('doc-title').textContent = titles[currentLanguage][currentDoc];
         document.getElementById('content').innerHTML = renderMarkdown(source.textContent);
-        document.querySelectorAll('.doc-link').forEach((link) => link.classList.toggle('active', link.dataset.doc === currentDoc));
+        document.querySelectorAll('.doc-link').forEach((link) => {{
+          const active = link.dataset.doc === currentDoc;
+          link.classList.toggle('active', active);
+          if (active) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
+        }});
+        document.querySelector('.directory-toggle').setAttribute('aria-expanded', 'false');
+        document.querySelector('.docs-directory').classList.remove('open');
+        document.title = `${{titles[currentLanguage][currentDoc]}} — NiceTool`;
         history.replaceState(null, '', `#${{currentDoc}}`);
       }}
 
       const messages = {{
-        'zh-CN': {{ 'nav.features': '平台能力', 'nav.workflow': '工作流', 'nav.docs': '文档' }},
-        'en-US': {{ 'nav.features': 'Capabilities', 'nav.workflow': 'Workflow', 'nav.docs': 'Docs' }}
+        'zh-CN': {{ skip:'跳至内容', directory:'文档目录', 'nav.demos':'流程演示', 'nav.workflow':'如何工作', 'nav.docs':'使用文档', 'nav.start':'开始体验 ↗' }},
+        'en-US': {{ skip:'Skip to content', directory:'Documentation', 'nav.demos':'See it in action', 'nav.workflow':'How it works', 'nav.docs':'Documentation', 'nav.start':'Get started ↗' }}
       }};
       function setLanguage(lang) {{
         currentLanguage = messages[lang] ? lang : 'zh-CN';
@@ -276,17 +311,41 @@ def render_page(docs: list[LocalizedDoc]) -> str:
         document.querySelectorAll('[data-doc-title]').forEach((node) => {{
           node.textContent = titles[currentLanguage][node.dataset.docTitle] || node.textContent;
         }});
-        document.querySelectorAll('[data-lang]').forEach((button) => {{
-          button.classList.toggle('active', button.dataset.lang === currentLanguage);
-        }});
-        localStorage.setItem('nicetool-landing-language', currentLanguage);
+        const toggle = document.querySelector('[data-language-toggle]');
+        toggle.textContent = currentLanguage === 'en-US' ? '中文' : 'EN';
+        toggle.setAttribute('aria-label', currentLanguage === 'en-US' ? '切换为中文' : 'Switch to English');
+        document.querySelector('.docs-directory').setAttribute('aria-label', messages[currentLanguage].directory);
+        try {{ localStorage.setItem('nicetool-website-language', currentLanguage); }} catch {{ /* Optional preference. */ }}
         showDoc(currentDoc);
       }}
 
-      document.querySelectorAll('[data-lang]').forEach((button) => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
+      document.querySelector('[data-language-toggle]').addEventListener('click', () => setLanguage(currentLanguage === 'zh-CN' ? 'en-US' : 'zh-CN'));
+      document.querySelector('.directory-toggle').addEventListener('click', (event) => {{
+        const open = document.querySelector('.docs-directory').classList.toggle('open');
+        event.currentTarget.setAttribute('aria-expanded', String(open));
+      }});
+      document.querySelector('.menu-toggle').addEventListener('click', (event) => {{
+        const open = document.getElementById('nav-links').classList.toggle('open');
+        event.currentTarget.setAttribute('aria-expanded', String(open));
+      }});
       document.querySelectorAll('.doc-link').forEach((link) => link.addEventListener('click', () => showDoc(link.dataset.doc)));
+      document.getElementById('content').addEventListener('click', (event) => {{
+        const anchor = event.target.closest('a');
+        if (!anchor) return;
+        const href = anchor.getAttribute('href');
+        if (href && href.startsWith('#') && titles[currentLanguage][href.slice(1)]) {{
+          event.preventDefault();
+          showDoc(href.slice(1));
+        }}
+      }});
+      window.addEventListener('hashchange', () => {{
+        const slug = decodeURIComponent(location.hash.slice(1));
+        if (titles[currentLanguage][slug]) showDoc(slug);
+      }});
       currentDoc = decodeURIComponent(location.hash.slice(1)) || defaultDoc;
-      setLanguage(localStorage.getItem('nicetool-landing-language') || (navigator.language === 'zh-CN' ? 'zh-CN' : 'en-US'));
+      let savedLanguage;
+      try {{ savedLanguage = localStorage.getItem('nicetool-website-language'); }} catch {{ /* Optional preference. */ }}
+      setLanguage(savedLanguage || (navigator.language.toLowerCase().startsWith('zh') ? 'zh-CN' : 'en-US'));
     </script>
   </body>
 </html>
@@ -297,7 +356,11 @@ def main() -> None:
     docs = load_docs()
     if not docs:
         raise SystemExit("No docs found")
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT.write_text(render_page(docs), encoding="utf-8")
+    (OUTPUT.parent / "LICENSE").write_text(
+        (ROOT / "LICENSE").read_text(encoding="utf-8"), encoding="utf-8"
+    )
     print(
         f"built {OUTPUT.relative_to(ROOT)} with {len(docs)} docs and {len(LANGUAGES)} languages"
     )

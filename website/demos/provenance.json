@@ -1,0 +1,41 @@
+{
+  "recorded_on": "2026-10-26",
+  "origin": "Actual Codex CLI generation and NiceTool CLI execution; edited output replays, not desktop chat footage.",
+  "data": "8 synthetic orders; no customer data or credentials.",
+  "prompt_excerpt": "Create a single-file NiceGUI order workspace with keyword and status filters, KPI cards, a results table and filtered CSV export. Use synthetic orders only.",
+  "codex_summary": "Created `workflow.py` with the approved bilingual NiceTool order demo, filtering, KPI cards, refreshed results, and filtered CSV export.\n\nValidation: `ast.parse` passed. No preview, publishing, filesystem access, or network requests were performed.",
+  "validation": "ast.parse: OK; NiceTool static validator: passed; preview verified in a browser.",
+  "generated_source_sha256": "c8fd6cfc60c9b15fb0fa8ef67060f49361aefb2bae83c29fbffbec930d016d8b",
+  "source_sha256": "b781e286260cd944212d8a365eb2cb5ff8839ae419a79334cda69d89de847f65",
+  "source_edits": "Project metadata and formatting only.",
+  "preview": {
+    "url": "/client/tool/website/order_workspace",
+    "message": "预览已更新，刷新固定预览页面即可查看最新代码"
+  },
+  "publish": {
+    "success": true,
+    "version": "v1",
+    "url": "/user/tools/website/order_workspace",
+    "code": "ok"
+  },
+  "status": {
+    "success": true,
+    "current_version": "v1",
+    "published": true
+  },
+  "export_verified": {
+    "rows": 2,
+    "customer": "Acme",
+    "status": "Completed"
+  },
+  "workspace_recording": {
+    "entry": "/user",
+    "action": "Click order_workspace in the tool list",
+    "destination": "/user/tools/website/order_workspace",
+    "languages": [
+      "zh-CN",
+      "en-US"
+    ],
+    "poster": "Tool list before entering the tool"
+  }
+}

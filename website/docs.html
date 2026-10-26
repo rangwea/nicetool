@@ -3,57 +3,29 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>NiceTool Docs - 静态文档</title>
-    <meta name="description" content="NiceTool 静态文档查看页，由 docs 目录 Markdown 构建生成，不依赖 NiceTool server。" />
-    <style>
-      :root { --ink:#111827; --muted:#5b6475; --line:#e5e7eb; --blue:#2563eb; --surface:#f8fafc; --code:#0f172a; }
-      * { box-sizing: border-box; }
-      body { margin:0; color:var(--ink); background:#fff; font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; line-height:1.65; }
-      a { color:inherit; text-decoration:none; }
-      .wrap { width:min(1180px, calc(100% - 40px)); margin:0 auto; }
-      .nav { position:sticky; top:0; z-index:10; border-bottom:1px solid rgba(229,231,235,.86); background:rgba(255,255,255,.92); backdrop-filter:blur(14px); }
-      .nav-inner { min-height:72px; display:flex; align-items:center; justify-content:space-between; gap:24px; }
-      .brand { display:flex; align-items:center; gap:22px; color:#111827; font-size:28px; font-weight:850; letter-spacing:-.03em; }
-      .brand-mark { display:grid; width:72px; height:72px; place-items:center; border-radius:18px; color:#fff; background:#111827; font-size:32px; font-weight:850; letter-spacing:0; box-shadow:0 16px 34px rgba(17,24,39,.12); }
-      .nav-links { display:flex; align-items:center; gap:18px; color:#4b5563; font-size:14px; font-weight:650; }
-      .lang-switch { display:inline-flex; align-items:center; gap:4px; border:1px solid var(--line); border-radius:999px; padding:4px; background:#fff; }
-      .lang-button { border:0; border-radius:999px; padding:5px 10px; color:#64748b; background:transparent; font:inherit; font-size:13px; font-weight:750; cursor:pointer; }
-      .lang-button.active { color:#fff; background:var(--ink); }
-      h1 { max-width:820px; margin:22px 0 12px; font-size:clamp(38px,5vw,58px); line-height:1.08; }
-      .layout { display:grid; grid-template-columns:300px minmax(0,1fr); gap:28px; padding:28px 0 84px; }
-      .sidebar { position:sticky; top:96px; height:calc(100vh - 120px); overflow:auto; border:1px solid var(--line); border-radius:16px; padding:10px; background:#fff; }
-      .doc-link { display:block; width:100%; border:0; border-radius:10px; padding:11px 12px; color:#4b5563; background:transparent; font:inherit; font-weight:500; text-align:left; cursor:pointer; }
-      .doc-link span { display:block; }
-      .doc-link:hover, .doc-link.active { color:var(--ink); background:#eff6ff; }
-      .viewer { min-width:0; border:1px solid var(--line); border-radius:18px; padding:34px; background:#fff; box-shadow:0 16px 48px rgba(15,23,42,.06); }
-      .viewer h1, .viewer h2, .viewer h3, .viewer h4 { line-height:1.25; }
-      .viewer h1 { margin-top:0; font-size:36px; }
-      .viewer h2 { margin-top:34px; padding-top:24px; border-top:1px solid var(--line); font-size:26px; }
-      .viewer h3 { margin-top:24px; font-size:20px; }
-      .viewer h4 { margin-top:20px; font-size:16px; }
-      .viewer p, .viewer li { color:#4b5563; }
-      .viewer a { color:var(--blue); font-weight:700; }
-      .viewer code { border-radius:6px; padding:2px 6px; background:#eef2f7; color:#0f172a; font-size:.92em; }
-      .viewer pre { overflow:auto; border-radius:14px; padding:18px; background:var(--code); color:#e5e7eb; }
-      .viewer pre code { padding:0; background:transparent; color:inherit; }
-      .viewer blockquote { margin:18px 0; border-left:4px solid var(--blue); padding:2px 0 2px 16px; color:#475569; background:#f8fafc; }
-      .viewer table { width:100%; border-collapse:collapse; margin:18px 0; }
-      .viewer th, .viewer td { border:1px solid var(--line); padding:10px 12px; text-align:left; vertical-align:top; }
-      .viewer th { background:#f8fafc; }
-      .toolbar { display:flex; justify-content:space-between; align-items:center; gap:16px; margin-bottom:18px; color:#64748b; font-size:14px; }
-      @media (max-width: 900px) { .layout { grid-template-columns:1fr; } .sidebar { position:static; height:auto; max-height:420px; } .nav-links { gap:12px; } }
-    </style>
+    <title>使用文档 — NiceTool</title>
+    <meta name="description" content="NiceTool 使用文档：快速开始、工具开发、配置与部署指南。" />
+    <meta name="theme-color" content="#f4f7f5" />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css?v=20261026-docs-v1" />
+    <link rel="stylesheet" href="docs.css?v=20261026-docs-v1" />
   </head>
   <body>
-    <nav class="nav">
-      <div class="wrap nav-inner">
-        <a class="brand" href="./index.html" aria-label="NiceTool"><span class="brand-mark">N</span><span>NiceTool</span></a>
-        <div class="nav-links"><a href="./index.html#features" data-i18n="nav.features">平台能力</a><a href="./index.html#workflow" data-i18n="nav.workflow">工作流</a><a href="./docs.html" data-i18n="nav.docs">文档</a><div class="lang-switch" aria-label="Language"><button class="lang-button" type="button" data-lang="zh-CN">中</button><button class="lang-button" type="button" data-lang="en-US">EN</button></div></div>
-      </div>
-    </nav>
-    <main class="wrap layout">
-      <aside class="sidebar" aria-label="文档目录">
-        <button class="doc-link active" data-doc="README"><span data-doc-title="README">NiceTool 文档</span></button>
+    <a class="skip-link" href="#content" data-i18n="skip">跳至内容</a>
+    <header class="site-header">
+      <nav class="nav inner" aria-label="Main navigation">
+        <a class="brand" href="index.html" aria-label="NiceTool home"><span class="brand-mark">N</span>NiceTool</a>
+        <div class="nav-links" id="nav-links"><a href="index.html#demos" data-i18n="nav.demos">流程演示</a><a href="index.html#workflow" data-i18n="nav.workflow">如何工作</a><a href="docs.html" aria-current="page" data-i18n="nav.docs">使用文档</a></div>
+        <div class="nav-actions"><button class="language-switch" type="button" data-language-toggle aria-label="Switch to English">EN</button><a class="button button-small" href="#demo" data-i18n="nav.start">开始体验 ↗</a><button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">☰</button></div>
+      </nav>
+    </header>
+    <main class="inner docs-layout">
+      <aside class="docs-directory" aria-label="文档目录">
+        <button class="directory-toggle" type="button" aria-controls="doc-list" aria-expanded="false"><span data-i18n="directory">文档目录</span><span aria-hidden="true">⌄</span></button>
+        <div class="sidebar" id="doc-list">
+          <p class="eyebrow" data-i18n="directory">文档目录</p>
+        <button class="doc-link active" data-doc="project"><span data-doc-title="project">项目介绍与快速开始</span></button>
+        <button class="doc-link" data-doc="README"><span data-doc-title="README">NiceTool 文档</span></button>
         <button class="doc-link" data-doc="nicetool-skill"><span data-doc-title="nicetool-skill">CLI 与 Skill</span></button>
         <button class="doc-link" data-doc="nicetool-skill-usage"><span data-doc-title="nicetool-skill-usage">开发任务示例</span></button>
         <button class="doc-link" data-doc="demo"><span data-doc-title="demo">先体验：AI 可以帮你创建什么</span></button>
@@ -67,14 +39,174 @@
         <button class="doc-link" data-doc="oauth2-auth"><span data-doc-title="oauth2-auth">认证与项目权限</span></button>
         <button class="doc-link" data-doc="nicetool-token-setup"><span data-doc-title="nicetool-token-setup">Token 配置</span></button>
         <button class="doc-link" data-doc="contributing"><span data-doc-title="contributing">开发与贡献</span></button>
-        <button class="doc-link" data-doc="plans-2026-09-11-project-rbac-design"><span data-doc-title="plans-2026-09-11-project-rbac-design">用户项目授权设计</span></button>
-        <button class="doc-link" data-doc="plans-2026-09-17-nicetool-skill-optimization-design"><span data-doc-title="plans-2026-09-17-nicetool-skill-optimization-design">NiceTool skill 优化</span></button>
+        </div>
       </aside>
       <article class="viewer">
-        <div class="toolbar"><span id="doc-title">NiceTool 文档</span></div>
-        <div id="content"></div>
+        <div class="toolbar"><span id="doc-title">项目介绍与快速开始</span></div>
+        <div id="content" tabindex="-1"></div>
       </article>
     </main>
+
+    <script type="text/markdown" id="doc-zh-CN-project">
+# NiceTool
+
+
+
+一站式 AI 工具平台，让想法成为团队可用的工具。
+
+用自然语言描述需求，让 AI 创建工具，在浏览器中预览验证，再发布到团队的工具中心。NiceTool 将数据接入、工具生成、预览调试、发布共享、版本管理和访问授权串成完整流程，让工具从一次性的需求变成可以持续使用和改进的团队资源。
+
+使用者只需关注要解决什么问题、结果是否正确，无需了解工具的底层语言。创建者通过接入 NiceTool Skill 的 AI 编程助手描述需求、调整功能；团队成员通过浏览器直接使用已发布的工具。
+
+## 从需求到可用工具
+
+1. **描述需求**：告诉 AI 需要查询哪些数据、完成什么操作、如何展示结果。
+2. **生成工具**：AI 结合项目上下文、已配置的数据源和开发规范创建工具。
+3. **预览调整**：打开预览页面验证效果，继续用自然语言提出修改；AI 可读取日志排查问题。
+4. **发布共享**：确认结果后发布到工具中心，为需要的成员分配项目访问权限。
+5. **持续改进**：根据反馈迭代工具，通过版本和日志管理后续维护。
+
+AI 创建和修改工具通过外部 AI 编程助手与 Skill 完成；NiceTool 提供工具运行、预览、发布及团队管理服务。
+
+## 可以用 NiceTool 做什么
+
+| 场景 | 示例 |
+| --- | --- |
+| 数据查询 | 按订单号、状态和日期筛选记录，查看分页明细 |
+| 业务操作 | 创建信息维护表单、批量处理和日常管理工具 |
+| 统计分析 | 汇总业务指标，生成趋势图、分析面板和导出报表 |
+| 团队协作 | 集中发布工具，按项目授权，让成员通过统一入口使用 |
+
+## 平台能力
+
+- **AI 驱动创建**：通过 NiceTool Skill 将自然语言需求转化为工具，支持连续修改和调试。
+- **完整发布流程**：从预览验证到正式发布，提供版本记录、回滚和日志查看。
+- **统一工具中心**：按项目组织工具，支持浏览、搜索、筛选和直接运行。
+- **共享数据能力**：集中管理 MySQL、MongoDB 数据源、平台变量和枚举，供工具复用。
+- **团队访问管理**：支持内置账号、OIDC/OAuth2、个人 Token 和用户项目授权。
+- **只读分析能力**：NiceTool Skill 支持数据查询、图表、仪表盘及有数量上限的导出。
+
+## 一键体验
+
+只需 Docker 和 Compose v2，即可启动包含合成数据的完整演示：
+
+```bash
+sh scripts/demo.sh
+```
+
+打开 [工具中心](http://localhost:8000/user)，体验订单查询、销售看板和报价计算器。无需安装 Python、准备数据库或配置模型密钥。
+
+接着按[完整 AI 创建示例](#demo)让你的 AI 助手创建新工具、根据反馈修改并发布。演示仅允许本机访问，全部数据均为合成数据。
+
+## 创建你的第一个 AI 工具
+
+已有 NiceTool 实例时，先在工作项目中[安装 NiceTool Skill](#nicetool-skill)并完成账号授权，再向支持 Skill 的 AI 编程助手描述需求：
+
+> 创建一个订单查询工具，使用已配置的订单数据源，支持按订单号、日期和状态筛选，分页展示结果。先生成预览，不发布。
+
+打开 AI 返回的预览地址，验证后继续调整：
+
+> 增加订单金额汇总，并支持导出当前筛选结果，最多导出 1000 条。
+
+确认效果和目标实例后发布：
+
+> 将已验证的工具发布到订单项目，并核对正式状态。
+
+管理员为成员分配项目访问权限后，成员即可从工具中心打开使用。普通使用者无需安装开发环境，也无需编写代码。发布需要相应权限；更多示例见[开发任务示例](#nicetool-skill-usage)。
+
+## 部署自己的平台
+
+准备 Python 3.13+、uv 和一个可访问的 MySQL 实例。下载本仓库后，在仓库根目录执行：
+
+```bash
+uv sync --locked
+```
+
+先在 MySQL 中创建数据库，为应用账号授予该数据库的建表和读写权限：
+
+```sql
+CREATE DATABASE nicetool CHARACTER SET utf8mb4;
+```
+
+参考 `.env.example` 创建或编辑根目录 `.env`，将以下示例值替换为本地配置；已有 `.env` 时先备份，不直接覆盖：
+
+```dotenv
+HOST=0.0.0.0
+PORT=8000
+MYSQL_HOST=127.0.0.1
+MYSQL_PORT=3306
+MYSQL_USER=nicetool
+MYSQL_PASSWORD=replace-with-your-password
+MYSQL_DATABASE=nicetool
+STORAGE_SECRET=replace-with-a-random-secret
+AUTH_ENABLED=true
+AUTH_JWT_SECRET=replace-with-another-random-secret
+```
+
+可用 `uv run python -c "import secrets; print(secrets.token_urlsafe(32))"` 生成密钥。不要将实际凭据提交到版本控制。
+
+```bash
+uv run main.py
+```
+
+启动时创建缺失的数据表，并从数据库恢复工具缓存。访问 [登录页](http://localhost:8000/auth/login)初始化管理员，再进入[管理后台](http://localhost:8000/admin)配置用户和数据源。
+
+| 入口 | 默认地址 |
+| --- | --- |
+| 首页 | <http://localhost:8000> |
+| 工具中心 | <http://localhost:8000/user> |
+| 管理后台 | <http://localhost:8000/admin> |
+| API 文档 | <http://localhost:8000/docs> |
+| 健康检查 | <http://localhost:8000/health> |
+
+### Docker 部署
+
+```bash
+docker build -t nicetool .
+docker run -d --name nicetool --env-file .env -p 8000:8000 nicetool
+```
+
+镜像包含平台运行环境，通过 uv 按 `uv.lock` 安装依赖。容器内的 `MYSQL_HOST` 必须指向容器可访问的数据库地址。镜像排除 `.env` 和环境专用配置，运行时通过环境变量注入。持久化、反向代理及升级说明见[部署指南](#deployment)。
+
+## 文档
+
+从[文档索引](#README)选择你的使用路径：
+
+- [配置参考](#configuration)
+- [用户与管理员指南](#user-guide)
+- [认证与项目权限](#oauth2-auth)
+- [工具开发](#tool-development)
+- [CLI 与 Skill](#nicetool-skill)
+- [API 导航](#api)
+- [开发与贡献](#contributing)
+
+## 项目网站
+
+双语静态官网位于 [`website/`](#project)，包含预览与工具使用的真实 GIF 演示。仅使用合成数据；Codex Desktop 的创建与发布采用 AI 生成流程示意，工作台操作为真实录制。
+
+```bash
+python3 -m http.server 8088 --bind 127.0.0.1 --directory website
+```
+
+## 开发者说明
+
+平台底层采用 Python、NiceGUI、FastAPI 和 MySQL。工具源码版本保存在数据库中，`tools/` 是可重建的运行缓存；工具代码在服务进程内执行，因此发布权限应授予可信开发者。
+
+需要手工开发工具、扩展平台或集成 API 时，请参阅[工具开发](#tool-development)、[API 导航](#api)和[贡献指南](#contributing)。
+
+## 参与贡献
+
+欢迎提交问题报告、文档改进和聚焦的代码修改。报告问题时提供复现步骤、版本和脱敏日志；行为变更请附测试及迁移说明。项目使用 uv 管理依赖，具体命令见[贡献指南](#contributing)。
+
+## 项目标签
+
+`python` · `nicegui` · `fastapi` · `ai-tools` · `ai-agent` · `internal-tools` · `low-code` · `tool-management` · `self-hosted` · `mysql` · `mongodb` · `developer-tools`
+
+## 许可证
+
+本项目采用 [MIT 许可证](LICENSE)。Copyright © 2026 wikia。
+
+    </script>
 
     <script type="text/markdown" id="doc-zh-CN-README">
 # NiceTool 文档
@@ -83,36 +215,36 @@
 
 ## 部署和使用
 
-首次体验从[一键演示与 AI 创建教程](demo.md)开始。升级现有实例见[升级与恢复](upgrading.md)。
+首次体验从[一键演示与 AI 创建教程](#demo)开始。升级现有实例见[升级与恢复](#upgrading)。
 
 | 目标 | 文档 |
 | --- | --- |
-| 安装并运行 | [README](../README.md) |
-| 容器、反向代理、升级和备份 | [部署指南](deployment.md) |
-| 界面语言与翻译扩展 | [国际化](internationalization.md) |
-| 配置环境变量 | [配置参考](configuration.md) |
-| 浏览工具、管理用户和数据源 | [用户指南](user-guide.md) |
-| 登录、Token 与项目访问授权 | [认证与权限](oauth2-auth.md) · [Token 配置](nicetool-token-setup.md) |
+| 安装并运行 | [README](#project) |
+| 容器、反向代理、升级和备份 | [部署指南](#deployment) |
+| 界面语言与翻译扩展 | [国际化](#internationalization) |
+| 配置环境变量 | [配置参考](#configuration) |
+| 浏览工具、管理用户和数据源 | [用户指南](#user-guide) |
+| 登录、Token 与项目访问授权 | [认证与权限](#oauth2-auth) · [Token 配置](#nicetool-token-setup) |
 
 ## 开发和集成
 
 | 目标 | 文档 |
 | --- | --- |
-| 编写 Python 工具 | [工具开发](tool-development.md) |
-| 安装 Skill、使用 CLI | [CLI 与 Skill](nicetool-skill.md) |
-| 给开发助手描述任务 | [任务示例](nicetool-skill-usage.md) |
-| 创建只读统计和图表 | [CLI 与 Skill](nicetool-skill.md) |
-| 调用 HTTP 接口 | [API 导航](api.md) |
-| 修改平台并贡献代码 | [贡献指南](contributing.md) |
+| 编写 Python 工具 | [工具开发](#tool-development) |
+| 安装 Skill、使用 CLI | [CLI 与 Skill](#nicetool-skill) |
+| 给开发助手描述任务 | [任务示例](#nicetool-skill-usage) |
+| 创建只读统计和图表 | [CLI 与 Skill](#nicetool-skill) |
+| 调用 HTTP 接口 | [API 导航](#api) |
+| 修改平台并贡献代码 | [贡献指南](#contributing) |
 
-`plans/` 保存历史设计记录，不作为当前配置或接口契约。实际行为以源码和运行实例的 OpenAPI 文档为准。
+`plans/` 保存历史设计记录，不作为当前配置或接口契约，也不再收录到网站使用文档目录。实际行为以源码和运行实例的 OpenAPI 文档为准。
 
     </script>
 
     <script type="text/markdown" id="doc-zh-CN-nicetool-skill">
 # CLI 与 Skill
 
-[返回文档索引](README.md)
+[返回文档索引](#README)
 
 CLI 位于 `plugins/nicetool/skills/nicetool/scripts/tool-cli.py`。本仓库使用 `uv run python` 执行；Skill 正式源位于 `plugins/nicetool/skills/nicetool`，项目内 `.agents/skills/nicetool` 是符号链接。
 
@@ -197,9 +329,9 @@ uv run python plugins/nicetool/skills/nicetool/scripts/tool-cli.py   --server ht
     <script type="text/markdown" id="doc-zh-CN-nicetool-skill-usage">
 # 开发任务示例
 
-[返回文档索引](README.md)
+[返回文档索引](#README)
 
-先完成[Skill 安装和实例连接](nicetool-skill.md)，再向开发助手说明数据源、输入条件、结果字段和操作范围。以下项目名均为示例。
+先完成[Skill 安装和实例连接](#nicetool-skill)，再向开发助手说明数据源、输入条件、结果字段和操作范围。以下项目名均为示例。
 
 ## 查询工具
 
@@ -272,7 +404,7 @@ DEMO_PORT=8080 sh scripts/demo.sh
 
 > 使用 NiceTool Skill，基于当前演示项目创建一个新工具 demo/order_analysis。参考 examples/demo/tools/order_query.py，读取 examples/demo/orders.csv，支持订单状态筛选，显示订单数量和已完成订单金额。不要修改现有三个演示工具。目标实例是 http://localhost:8000，先预览，不发布。
 
-业务口径见 [演示数据说明](../examples/demo/README.md)。若使用了其他端口，请同步替换任务中的实例地址。
+业务口径见 [演示数据说明](#project)。若使用了其他端口，请同步替换任务中的实例地址。
 
 验证预览后继续：
 
@@ -292,7 +424,7 @@ DEMO_PORT=8080 sh scripts/demo.sh
 docker compose --env-file /dev/null -f compose.demo.yaml down
 ```
 
-再次运行 `sh scripts/demo.sh` 即可启动。初始化只补充不存在的示例工具，不覆盖已有版本；已删除的预置示例会在下次启动时重新创建。默认客户端环境仅在列表为空时创建，已有配置保留。
+再次运行 `sh scripts/demo.sh` 即可启动。初始化会创建缺失的示例工具；源码与预置文件不同时会写入新版本，因此重新启动可能覆盖你对三个预置工具的修改。源码相同则跳过。请使用新工具名保存自己的改动；已删除的预置示例会在下次启动时重新创建。默认客户端环境仅在列表为空时创建，已有配置保留。
 
 完全删除演示数据库、工具修改、日志及预览，再从头体验：
 
@@ -317,14 +449,14 @@ python3 scripts/doctor.py --server http://localhost:8000
 
 成功退出码为 0，检查失败为 1。诊断不读取 `.env`，不输出 Token、数据库密码或 HTTP 响应正文。健康接口仅表示 HTTP 服务存活，不能替代数据库与工具功能验收。
 
-正式使用请阅读[部署指南](deployment.md)，从 `.env.example` 配置自己的数据库和登录密钥。
+正式使用请阅读[部署指南](#deployment)，从 `.env.example` 配置自己的数据库和登录密钥。
 
     </script>
 
     <script type="text/markdown" id="doc-zh-CN-user-guide">
 # 用户与管理员指南
 
-[返回文档索引](README.md)
+[返回文档索引](#README)
 
 ## 首次登录
 
@@ -358,7 +490,7 @@ python3 scripts/doctor.py --server http://localhost:8000
 
 ## Token
 
-右上角用户菜单提供个人 Token 管理。完整 Token 只显示一次，丢失后重新生成；不再使用时撤销。配置方法见[Token 指南](nicetool-token-setup.md)。
+右上角用户菜单提供个人 Token 管理。完整 Token 只显示一次，丢失后重新生成；不再使用时撤销。配置方法见[Token 指南](#nicetool-token-setup)。
 
 ## 常见问题
 
@@ -375,7 +507,7 @@ python3 scripts/doctor.py --server http://localhost:8000
     <script type="text/markdown" id="doc-zh-CN-configuration">
 # 配置参考
 
-[返回文档索引](README.md)
+[返回文档索引](#README)
 
 配置由 `core/settings.py` 的 Pydantic Settings 读取，环境变量名不区分大小写。进程环境变量优先于 dotenv 文件；修改启动配置后需要重启服务。
 
@@ -415,7 +547,7 @@ python3 scripts/doctor.py --server http://localhost:8000
 
 ## 登录
 
-`AUTH_ENABLED` 默认 `false`。启用后配置 `AUTH_JWT_SECRET`；HTTPS 部署设置 `AUTH_REQUIRE_HTTPS_COOKIE=true`。完整配置见[认证与权限](oauth2-auth.md)。
+`AUTH_ENABLED` 默认 `false`。启用后配置 `AUTH_JWT_SECRET`；HTTPS 部署设置 `AUTH_REQUIRE_HTTPS_COOKIE=true`。完整配置见[认证与权限](#oauth2-auth)。
 
 ## 样式与配置入口
 
@@ -426,11 +558,11 @@ python3 scripts/doctor.py --server http://localhost:8000
     <script type="text/markdown" id="doc-zh-CN-deployment">
 # 部署指南
 
-[返回文档索引](README.md)
+[返回文档索引](#README)
 
 ## 本地运行
 
-按照[快速开始](../README.md)准备 Python 3.13+、uv 和 MySQL。执行 `uv sync --locked` 安装锁定依赖，再执行 `uv run main.py`。MySQL 数据库需预先创建；启动建表只创建缺失的表，不负责变更已有表的列或索引。
+按照[快速开始](#project)准备 Python 3.13+、uv 和 MySQL。执行 `uv sync --locked` 安装锁定依赖，再执行 `uv run main.py`。MySQL 数据库需预先创建；启动建表只创建缺失的表，不负责变更已有表的列或索引。
 
 ## Docker
 
@@ -481,18 +613,22 @@ HTTPS 部署启用 `AUTH_REQUIRE_HTTPS_COOKIE=true`；本机 HTTP 开发保持 `
 
 工具模块在服务进程内导入执行，不是沙箱；只允许可信开发者发布。预览文件及运行缓存依赖本地文件系统，多实例部署需要额外设计共享存储和请求路由。
 
-首次体验见[一键演示](demo.md)，详细升级步骤见[升级与恢复](upgrading.md)。
+首次体验见[一键演示](#demo)，详细升级步骤见[升级与恢复](#upgrading)。
 
     </script>
 
     <script type="text/markdown" id="doc-zh-CN-upgrading">
 # 升级与恢复
 
-[返回文档索引](README.md)
+[返回文档索引](#README)
 
 ## 演示环境
 
-更新代码后重新执行 `sh scripts/demo.sh`。数据库卷保留，已有工具版本不被演示初始化覆盖。如果希望体验更新后的预置工具，可明确重置整个演示卷，或手动发布新版示例。重置会删除演示环境中的全部修改，命令见[演示指南](demo.md)。
+更新代码后重新执行 `sh scripts/demo.sh`。数据库卷保留，但演示初始化会将内容不同的预置工具写为新版本，可能覆盖你对这三个工具的修改。请将自定义改动保存为其他工具名。重置会删除演示环境中的全部修改，命令见[演示指南](#demo)。
+
+## 当前开发契约
+
+项目尚未上线，接口调整直接同步服务端、CLI、Skill 和文档，不保留旧行为兼容入口。发布必须上传源码，工具名称严格校验；详见 [API 导航](#api)。
 
 ## 正式部署
 
@@ -518,7 +654,7 @@ HTTP `/health` 返回 `OK` 只是存活检查。还应实际运行一个使用�
     <script type="text/markdown" id="doc-zh-CN-tool-development">
 # 工具开发
 
-[返回文档索引](README.md)
+[返回文档索引](#README)
 
 ## 文件与入口
 
@@ -530,16 +666,17 @@ description: 演示交互输入
 creator: contributor
 tags: demo
 """
+
 from nicegui import ui
 
 
 def main():
-    with ui.column().classes('w-full gap-4'):
-        ui.label('Hello NiceTool').classes('text-xl font-semibold')
-        ui.button('点击', on_click=lambda: ui.notify('操作成功'))
+    with ui.column().classes("w-full gap-4"):
+        ui.label("Hello NiceTool").classes("text-xl font-semibold")
+        ui.button("点击", on_click=lambda: ui.notify("操作成功"))
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
     ui.run()
 ```
@@ -564,7 +701,7 @@ if __name__ == '__main__':
 4. 确认目标项目与实例，使用 `publish` 上传源码。
 5. 使用 `status` 核对正式版本，并打开正式地址。
 
-命令示例见[CLI 指南](nicetool-skill.md)。预览执行也会运行真实 Python 代码，不自动回滚工具对业务数据的写入。
+命令示例见[CLI 指南](#nicetool-skill)。预览执行也会运行真实 Python 代码，不自动回滚工具对业务数据的写入。
 
 ## 平台实现
 
@@ -575,12 +712,20 @@ if __name__ == '__main__':
 
 正式内容以数据库为准，不要把手工修改运行缓存当成发布。
 
+## 工具名称与源码契约
+
+项目名和工具名仅允许小写字母、数字、下划线和连字符；项目名最长 100 个字符，工具名最长 197 个字符。工具名不包含 `.py`。平台不会自动转小写、替换空格或剥离扩展名；非法名称会被拒绝，API 返回 HTTP 422。工具标题可使用中文，与工具标识符分开。
+
+发布必须上传包含顶层 `main()` 的 Python 源码。`POST /api/tools/{project}/{name}/publish` 必须携带 JSON 请求体 `{"content": "..."}`；缺失请求体、缺失 content 或空字符串返回 HTTP 422。源码语法或入口错误返回 HTTP 400。CLI 默认读取本地 `tools/{project}/{name}.py` 并上传，也可使用 `--file` 或 `--stdin`。服务端不会从当前数据库版本或本地运行缓存推断待发布内容。
+
+MySQL 保存正式源码和版本，本地 `tools/` 仅作为可恢复的运行缓存。恢复历史源码请在后台使用版本回滚，它会创建新版本。工具详情不返回 revision，CLI `get --output` 仅写入源码文件；平台未提供乐观锁冲突保护。
+
     </script>
 
     <script type="text/markdown" id="doc-zh-CN-api">
 # API 导航
 
-[返回文档索引](README.md)
+[返回文档索引](#README)
 
 启动服务后，通过 `/docs` 查看 Swagger，`/redoc` 查看 ReDoc，`/openapi.json` 获取接口 Schema。子路径部署时添加 `PROJECT_PATH`。请求字段、响应结构与错误码以运行实例的 Schema 和实现为准。
 
@@ -616,7 +761,15 @@ uv run python -c 'import json; from pathlib import Path; print(json.dumps({"cont
 
 ## 访问与集成边界
 
-普通页面通过 Cookie 登录，CLI 使用 Bearer Token。预览 URL 默认处于公共路径范围，不应将其当作私有数据隔离机制。对接时同时核对路径保护、项目授权与操作 scope；参见[认证说明](oauth2-auth.md)。
+普通页面通过 Cookie 登录，CLI 使用 Bearer Token。预览 URL 默认处于公共路径范围，不应将其当作私有数据隔离机制。对接时同时核对路径保护、项目授权与操作 scope；参见[认证说明](#oauth2-auth)。
+
+## 工具名称与源码契约
+
+项目名和工具名仅允许小写字母、数字、下划线和连字符；项目名最长 100 个字符，工具名最长 197 个字符。工具名不包含 `.py`。平台不会自动转小写、替换空格或剥离扩展名；非法名称会被拒绝，API 返回 HTTP 422。工具标题可使用中文，与工具标识符分开。
+
+发布必须上传包含顶层 `main()` 的 Python 源码。`POST /api/tools/{project}/{name}/publish` 必须携带 JSON 请求体 `{"content": "..."}`；缺失请求体、缺失 content 或空字符串返回 HTTP 422。源码语法或入口错误返回 HTTP 400。CLI 默认读取本地 `tools/{project}/{name}.py` 并上传，也可使用 `--file` 或 `--stdin`。服务端不会从当前数据库版本或本地运行缓存推断待发布内容。
+
+MySQL 保存正式源码和版本，本地 `tools/` 仅作为可恢复的运行缓存。恢复历史源码请在后台使用版本回滚，它会创建新版本。工具详情不返回 revision，CLI `get --output` 仅写入源码文件；平台未提供乐观锁冲突保护。
 
     </script>
 
@@ -670,7 +823,7 @@ uv run python -m unittest discover -s tests -p test_i18n.py
     <script type="text/markdown" id="doc-zh-CN-oauth2-auth">
 # 认证与项目权限
 
-[返回文档索引](README.md)
+[返回文档索引](#README)
 
 ## 本地账号
 
@@ -732,7 +885,7 @@ AUTH_SCOPES="profile email"
 
 ## CLI 与设备授权
 
-CLI 使用 Bearer 个人 Token；安装脚本可打开浏览器，经用户确认后获取凭据。Token 可撤销，服务端保存哈希。见[Token 配置](nicetool-token-setup.md)。
+CLI 使用 Bearer 个人 Token；安装脚本可打开浏览器，经用户确认后获取凭据。Token 可撤销，服务端保存哈希。见[Token 配置](#nicetool-token-setup)。
 
 ```bash
 AUTH_ADMIN_GROUPS=nicetool,platform-admin
@@ -751,11 +904,11 @@ AUTH_PUBLIC_PATHS=/,/health,/docs,/redoc,/openapi.json,/auth,/api/auth/device/st
     <script type="text/markdown" id="doc-zh-CN-nicetool-token-setup">
 # Token 配置
 
-[返回文档索引](README.md)
+[返回文档索引](#README)
 
 ## 通过安装脚本授权
 
-[Skill 安装脚本](nicetool-skill.md)会打开浏览器，请求用户授权。确认后，凭据保存在 `${XDG_CONFIG_HOME:-$HOME/.config}/nicetool/credentials.env`，权限为 `0600`。客户端配置只保存实例地址和 Token 环境变量名。
+[Skill 安装脚本](#nicetool-skill)会打开浏览器，请求用户授权。确认后，凭据保存在 `${XDG_CONFIG_HOME:-$HOME/.config}/nicetool/credentials.env`，权限为 `0600`。客户端配置只保存实例地址和 Token 环境变量名。
 
 ## 手工配置
 
@@ -784,7 +937,7 @@ Token 丢失后不能取回明文，应重新生成。撤销旧 Token 后，更�
     <script type="text/markdown" id="doc-zh-CN-contributing">
 # 开发与贡献
 
-[返回文档索引](README.md)
+[返回文档索引](#README)
 
 ## 开发环境
 
@@ -840,56 +993,165 @@ Skill 的正式源是 `plugins/nicetool/skills/nicetool`，`.agents/skills/nicet
 
     </script>
 
-    <script type="text/markdown" id="doc-zh-CN-plans-2026-09-11-project-rbac-design">
-> 历史设计记录：当前实现采用按用户分配项目访问权限，使用说明见 [认证与权限](../oauth2-auth.md)。本文不作为现行操作指南。
+    <script type="text/markdown" id="doc-en-US-project">
+# NiceTool
 
-# 用户项目授权设计
 
-## 目标
 
-管理员可查看并访问全部工具。其他用户由管理员直接授予项目访问权；获得项目
-访问权后，可访问该项目下当前及未来发布的全部工具。
+An all-in-one AI tool platform that turns ideas into tools your team can use.
 
-## 数据模型
+Describe what you need in natural language, let AI build a tool, preview it in your browser, and publish it to your team's tool center. NiceTool brings together data access, tool creation, previewing, debugging, publishing, version management, and access control, so one-off requests can become tools your team maintains and improves over time.
 
-用户角色继续保存在 `auth_users.role`，仅用于区分管理员和普通用户。新增
-`auth_user_resources`，使用 `user_id + resource_type + resource_name` 唯一标识
-一项用户授权；项目权限的 `resource_type` 固定为 `project`。该表不使用数据库
-外键。
+Users can focus on the task and whether the results are correct. Creators describe requirements and refine tools through an AI coding assistant with the NiceTool Skill installed; team members use published tools directly in their browser.
 
-## 权限规则
+## From an idea to a working tool
 
-- 认证未启用时允许访问全部项目，保持本地开发行为。
-- 管理员自动拥有全部项目权限，无需配置角色。
-- 普通用户根据自身用户 ID 获得授权项目。
-- 用户没有项目授权时看不到任何工具。
-- 工具中心过滤未授权项目；直接访问工具 URL 时再次校验并返回 403。
-- 新项目默认仅管理员可见，给角色授权后自动包含该项目下全部工具。
+1. **Describe the task**: Tell your AI assistant which data to query, what actions to perform, and how to present the results.
+2. **Generate a tool**: The assistant uses project context, configured data sources, and development conventions to build it.
+3. **Preview and refine**: Open the preview, request changes in natural language, and let the assistant inspect logs to troubleshoot issues.
+4. **Publish and share**: Publish the verified tool to the tool center and grant project access to the members who need it.
+5. **Keep improving**: Iterate on feedback and use versions and logs to support ongoing maintenance.
 
-## 管理界面
+An external AI coding assistant and the NiceTool Skill create and modify tools. NiceTool provides the runtime, previews, publishing, and team administration.
 
-用户管理页面增加“项目授权”操作，为普通用户勾选可访问项目。项目列表来自
-当前工具目录，保存时整体替换该用户的项目授权。
+## What can you build?
 
-## 验证
+| Use case | Examples |
+| --- | --- |
+| Data queries | Filter records by order number, status, and date, with paginated results |
+| Business operations | Build maintenance forms, batch processing tools, and everyday admin utilities |
+| Analytics | Summarize business metrics, create charts and dashboards, and export reports |
+| Team collaboration | Publish tools centrally, assign project permissions, and provide a shared entry point |
 
-覆盖管理员旁路、普通用户直接授权、空授权拒绝、工具列表过滤和直接 URL 权限
-判断；初始化 SQL 必须包含 `auth_user_resources`。
+## Platform capabilities
 
-    </script>
+- **AI-assisted creation**: Turn natural-language requirements into tools with the NiceTool Skill, then refine and debug them through follow-up requests.
+- **Publishing workflow**: Preview and verify tools before publishing, with version history, rollback, and logs.
+- **Unified tool center**: Organize tools by project and browse, search, filter, and run them in one place.
+- **Shared data resources**: Manage MySQL and MongoDB data sources, platform variables, and enums for tools to reuse.
+- **Team access management**: Support built-in accounts, OIDC/OAuth2, personal tokens, and per-user project permissions.
+- **Read-only analytics**: Use the NiceTool Skill for queries, charts, dashboards, and exports with explicit row limits.
 
-    <script type="text/markdown" id="doc-zh-CN-plans-2026-09-17-nicetool-skill-optimization-design">
-# NiceTool skill 优化
+## Try the demo
 
-用户已确认七项优化：安装路径、授权继承、渐进加载、查询快照、数据源参考、静态校验和行为验证。
+With Docker and Compose v2 installed, start a complete demo with synthetic data:
 
-保持 CLI/API 协议及工具单文件约定，使用实际加载的 skill 目录定位脚本，不改变用户工作目录。
-明确沿用会话已有的目标/环境授权，只有歧义或授权范围变化才澄清。
-把视觉文档分为基线、场景、复杂细节；只改逻辑时不强制加载视觉文档。
-查询分页使用提交时的筛选快照，重置只修改待提交输入。
-增加数据源参考和无执行副作用的 AST 校验脚本，区分静态检查、预览创建与实际交互验证。
-用回归测试覆盖分页快照、补查、失败恢复、用户隔离、静态校验及任意安装位置的 CLI 调用。
-保留用户已有的 `.agents/skills/nicetool` 删除状态，测试引用插件分发源。
+```bash
+sh scripts/demo.sh
+```
+
+Open the [tool center](http://localhost:8000/user) to try an order query, sales dashboard, and quote calculator. You do not need to install Python, prepare a database, or configure a model API key.
+
+Then follow the [complete AI creation walkthrough](#demo) to have your assistant build, refine, and publish a new tool. The demo is accessible only from your local machine and uses synthetic data throughout.
+
+## Create your first AI tool
+
+If you already have a NiceTool instance, [install the NiceTool Skill](#nicetool-skill) in your working project and authorize your account. Then describe your requirements to an AI coding assistant that supports Skills:
+
+> Create an order query tool using the configured order data source. Support filtering by order number, date, and status, and display paginated results. Generate a preview first; do not publish it.
+
+Open the preview URL returned by the assistant, verify the result, and request improvements:
+
+> Add an order amount summary and let me export the current filtered results, up to 1,000 rows.
+
+Once you have verified the tool and the target instance, publish it:
+
+> Publish the verified tool to the orders project and check its published state.
+
+After an administrator grants project access, members can open the tool from the tool center. End users do not need a development environment or programming experience. Publishing requires the appropriate permissions; see [development task examples](#nicetool-skill-usage) for more prompts.
+
+## Deploy your own platform
+
+Prepare Python 3.13+, uv, and an accessible MySQL instance. After downloading this repository, run the following from its root:
+
+```bash
+uv sync --locked
+```
+
+Create a MySQL database and grant the application account permission to create tables and read and write data in it:
+
+```sql
+CREATE DATABASE nicetool CHARACTER SET utf8mb4;
+```
+
+Use `.env.example` as a reference to create or edit the root `.env` file. Replace the example values below with your local settings. Back up an existing `.env` before changing it:
+
+```dotenv
+HOST=0.0.0.0
+PORT=8000
+LANGUAGE=en-US
+MYSQL_HOST=127.0.0.1
+MYSQL_PORT=3306
+MYSQL_USER=nicetool
+MYSQL_PASSWORD=replace-with-your-password
+MYSQL_DATABASE=nicetool
+STORAGE_SECRET=replace-with-a-random-secret
+AUTH_ENABLED=true
+AUTH_JWT_SECRET=replace-with-another-random-secret
+```
+
+Generate secrets with `uv run python -c "import secrets; print(secrets.token_urlsafe(32))"`. Do not commit actual credentials to version control. Set `LANGUAGE=en-US` in `.env` to use the English interface; see [internationalization](#internationalization) for details.
+
+```bash
+uv run main.py
+```
+
+On startup, the application creates missing tables and restores tool caches from the database. Visit the [login page](http://localhost:8000/auth/login) to initialize the administrator account, then use the [admin console](http://localhost:8000/admin) to configure users and data sources.
+
+| Entry point | Default URL |
+| --- | --- |
+| Home | <http://localhost:8000> |
+| Tool center | <http://localhost:8000/user> |
+| Admin console | <http://localhost:8000/admin> |
+| API documentation | <http://localhost:8000/docs> |
+| Health check | <http://localhost:8000/health> |
+
+### Docker deployment
+
+```bash
+docker build -t nicetool .
+docker run -d --name nicetool --env-file .env -p 8000:8000 nicetool
+```
+
+The image includes the platform runtime and installs dependencies with uv using `uv.lock`. Inside the container, `MYSQL_HOST` must point to a database address reachable from that container. The image excludes `.env` and environment-specific configuration; inject settings through environment variables at runtime. See the [deployment guide](#deployment) for persistence, reverse proxy, and upgrade guidance.
+
+## Documentation
+
+Choose a starting point from the [documentation index](#README):
+
+- [Configuration reference](#configuration)
+- [User and admin guide](#user-guide)
+- [Authentication and project permissions](#oauth2-auth)
+- [Tool development](#tool-development)
+- [CLI and Skill](#nicetool-skill)
+- [API reference](#api)
+- [Development and contributing](#contributing)
+
+## Project website
+
+The bilingual static site lives in [`website/`](#project), with real GIFs of preview and tool usage using synthetic data. Codex Desktop creation and publication use explicitly labeled AI-generated illustrations; workspace interactions are real recordings.
+
+```bash
+python3 -m http.server 8088 --bind 127.0.0.1 --directory website
+```
+
+## Developer notes
+
+The platform uses Python, NiceGUI, FastAPI, and MySQL. Tool source versions are stored in the database, and `tools/` is a rebuildable runtime cache. Tool code executes within the service process, so publishing permissions should be granted to trusted developers.
+
+For manual tool development, platform extensions, or API integration, see [tool development](#tool-development), the [API reference](#api), and the [contributing guide](#contributing).
+
+## Contributing
+
+Issue reports, documentation improvements, and focused code changes are welcome. Include reproduction steps, version information, and sanitized logs when reporting an issue. Add tests and migration notes for behavior changes. The project uses uv for dependency management; see the [contributing guide](#contributing) for commands.
+
+## Topics
+
+`python` · `nicegui` · `fastapi` · `ai-tools` · `ai-agent` · `internal-tools` · `low-code` · `tool-management` · `self-hosted` · `mysql` · `mongodb` · `developer-tools`
+
+## License
+
+This project is licensed under the [MIT License](LICENSE). Copyright © 2026 wikia.
 
     </script>
 
@@ -902,23 +1164,27 @@ This documentation describes the current repository implementation. Examples use
 
 ## Start here
 
-For the first experience, read [Demo: what AI can create for you](demo.md). For existing deployments, read [Upgrade and recovery](upgrading.md).
+For the first experience, read [Demo: what AI can create for you](#demo). For existing deployments, read [Upgrade and recovery](#upgrading).
 
 ## Core topics
 
 | Document | Purpose |
 | --- | --- |
-| [CLI and Skill](nicetool-skill.md) | How agents create, preview, publish, and manage tools through the CLI. |
-| [Development task examples](nicetool-skill-usage.md) | Example prompts for creating tools with AI. |
-| [User and admin guide](user-guide.md) | Daily usage for tool users and administrators. |
-| [Configuration](configuration.md) | Runtime settings and `.env` variables. |
-| [Deployment](deployment.md) | Docker and production deployment guidance. |
-| [Tool development](tool-development.md) | Tool file structure and runtime conventions. |
-| [Authentication and permissions](oauth2-auth.md) | OAuth2 login and project access control. |
+| [CLI and Skill](#nicetool-skill) | How agents create, preview, publish, and manage tools through the CLI. |
+| [Development task examples](#nicetool-skill-usage) | Example prompts for creating tools with AI. |
+| [User and admin guide](#user-guide) | Daily usage for tool users and administrators. |
+| [Configuration](#configuration) | Runtime settings and `.env` variables. |
+| [Deployment](#deployment) | Docker and production deployment guidance. |
+| [Tool development](#tool-development) | Tool file structure and runtime conventions. |
+| [Authentication and permissions](#oauth2-auth) | OAuth2 login and project access control. |
 
 ## Repository layout
 
-The application code lives in `public/`, `service/`, `models/`, `core/`, and `component/`. The static landing site lives in `landing/`. Documentation source files live under `docs/`; English documentation lives under `docs/en/`.
+The application code lives in `public/`, `service/`, `models/`, `core/`, and `component/`. The static website lives in `website/`. Documentation source files live under `docs/`; English documentation lives under `docs/en/`.
+
+## Historical designs
+
+`docs/plans/` contains historical design notes, not the current configuration or API contract. These notes are retained in the repository and excluded from the website's user documentation. Use current guides and the running instance's OpenAPI schema for integrations.
 
     </script>
 
@@ -931,7 +1197,15 @@ NiceTool tools are single-file Python modules with a top-level `main()` function
 
 ## Install the Skill
 
-Copy the Skill package into the agent's Skill search directory. Keep scripts and references together; do not copy only `SKILL.md`.
+For an instance with an enabled default client environment, run the installer from your target project after checking that you trust the instance:
+
+```bash
+curl -fsSL https://tools.example.com/api/install.sh | sh -s -- --local
+```
+
+Use `--global` for a user-level installation, `--target /path/to/project` for a specific project, `--force` to replace an existing Skill, or `--skip-auth` to skip browser authorization. Existing client configuration is preserved. An authenticated instance can open browser device authorization; the demo does not require a token. Environment names, URLs and token-variable names come from the admin environment page.
+
+Alternatively, copy the Skill package into the agent's Skill search directory. Keep scripts and references together; do not copy only `SKILL.md`.
 
 ```bash
 cp -R plugins/nicetool/skills/nicetool .agents/skills/nicetool
@@ -1009,7 +1283,7 @@ The demo environment is designed to reduce first-use friction for open-source us
 - A one-command demo startup script.
 - Demo data for order and sales scenarios.
 - Three finished tools: order query, quote calculator, and sales dashboard.
-- English UI examples that demonstrate filters, forms, cards, charts, and tables.
+- Examples that demonstrate filters, forms, cards, charts and tables; platform language follows `LANGUAGE` in `.env` (or `.env.example` when absent).
 - Seed logic that updates demo tools when their source files change.
 
 ## Start the demo
@@ -1031,6 +1305,25 @@ The script starts the application and a MySQL container, initializes demo data, 
 ## Why this matters
 
 The goal is to let users first experience “AI helped me create a usable business tool,” then learn how to deploy, secure, and extend the platform.
+
+## Restart and reset
+
+Restarting preserves the database volume, but seeding writes a new version when a preset tool differs from its bundled source. It can overwrite edits to the three preset tools. Save custom work under new tool names. Unchanged source is skipped; deleted preset tools are recreated. Existing client environments are retained.
+
+Stop while preserving data:
+
+```bash
+docker compose --env-file /dev/null -f compose.demo.yaml down
+```
+
+To delete all demo data and changes, explicitly reset the volumes:
+
+```bash
+docker compose --env-file /dev/null -f compose.demo.yaml down --volumes
+sh scripts/demo.sh
+```
+
+The demo disables authentication and uses an isolated database. Its example tools depend on `examples.demo.data`; create tutorial tools inside this repository. Preview first, then publish only after verification. For troubleshooting, run `python3 scripts/doctor.py --server http://localhost:8000`; HTTP health alone does not verify the database or tool behavior.
 
     </script>
 
@@ -1090,47 +1383,83 @@ The platform MySQL database stores tool versions, accounts, and administration c
 
 `AUTH_ENABLED` defaults to `false`. When enabled, configure `AUTH_JWT_SECRET`. For HTTPS deployments, set `AUTH_REQUIRE_HTTPS_COOKIE=true`.
 
+## Configuration file selection
+
+Process environment variables override dotenv values. Names are case-insensitive. Restart after changing startup configuration.
+
+- `ENV_FILE` selects one or more comma-separated paths; later files override earlier ones.
+- Without `ENV_FILE`, the server loads `.env`, then `.env.${ENV_TYPE}`.
+- `ENV_TYPE` defaults to `prod`; supported values are `dev`, `uat` and `prod`. Missing files are not created automatically.
+- Use `ENV_FILE=.env uv run main.py` to load only `.env`.
+
+Server `ENV_TYPE` selects startup configuration. CLI `--env` selects a remote instance from client configuration; these are separate settings.
+
+| Variable | Default | Purpose |
+| --- | --- | --- |
+| `DEBUG` | `false` | Debug mode. |
+| `MYSQL_POOL_SIZE` | `10` | Persistent pool connections. |
+| `MYSQL_MAX_OVERFLOW` | `20` | Additional pool connections. |
+| `MYSQL_POOL_TIMEOUT` | `30` | Seconds waiting for a connection. |
+| `MYSQL_POOL_RECYCLE` | `3600` | Seconds before recycling a connection. |
+| `REQUEST_TIMEOUT` | `30` | Authentication HTTP timeout in seconds. |
+
+Authentication supports local accounts, OIDC and OAuth2; see [Authentication and permissions](#oauth2-auth). Application styling is fixed in `core/styles.py`; there is no theme preference or generic settings-save page.
+
     </script>
 
     <script type="text/markdown" id="doc-en-US-deployment">
 # Deployment Guide
 
-NiceTool can run locally with uv or in Docker. Production deployments should use MySQL and a stable storage secret.
+## Local startup
 
-## Local
+Install Python 3.13+, uv and MySQL as described in the [quick start](#project). Create the database, configure `.env`, then run:
 
 ```bash
 uv sync --locked
 uv run main.py
 ```
 
+Startup creates missing tables; it does not alter existing columns or indexes.
+
 ## Docker
 
-Build the environment image:
+The repository `Dockerfile` builds an application image containing the source and locked dependencies in `/opt/venv`.
 
 ```bash
-docker build --platform linux/amd64 -t nicetool-env -f Dockerfile.env .
+docker build -t nicetool .
+docker run -d --name nicetool --env-file .env -p 8000:8000 \
+  -v nicetool-logs:/app/logs \
+  -v nicetool-previews:/tmp/nicegui_client_tools nicetool
 ```
 
-Run the service:
+`.dockerignore` excludes real `.env` files; provide configuration at runtime. The health check follows `PORT` and `PROJECT_PATH`.
 
-```bash
-docker run -d -p 8000:8000 -v $(pwd):/app --env-file .env --name nicetool nicetool-env
-```
+Inside a container, `localhost` refers to that container. Use a database service name on the same Docker network or a host address supported by your Docker installation.
 
-When tools need to access services running on the host, add `host.docker.internal`:
+## Persistence and recovery
 
-```bash
-docker run -d -p 8000:8000 -v $(pwd):/app --env-file .env --add-host=host.docker.internal:host-gateway --name nicetool nicetool-env
-```
+| Data | Storage | Recovery |
+| --- | --- | --- |
+| Published tool source, versions, accounts and configuration | MySQL | Database backup |
+| Tool runtime files | `TOOLS_DIR` | Rebuilt from MySQL |
+| Preview source and logs | `/tmp/nicegui_client_tools` | Preview again or persist a volume |
+| Application and tool logs | `logs/` | Persist a volume or use external logging |
 
-## Production checklist
+Backing up only `tools/` cannot restore the platform. Keep database backups and runtime configuration and secrets separately.
 
-- Create the MySQL database before startup.
-- Set a strong `STORAGE_SECRET`.
-- Configure authentication if the instance is shared.
-- Back up MySQL and tool source files.
-- Keep `.env` out of public commits.
+## Reverse proxy and subpaths
+
+For `PROJECT_PATH=/nicetool`, preserve the prefix and support WebSockets. Forward the external host and protocol. OAuth callback URLs must include the prefix, for example `https://tools.example.com/nicetool/auth/callback`.
+
+Set independent `STORAGE_SECRET` and `AUTH_JWT_SECRET` values. Enable authentication for shared deployments and use `AUTH_REQUIRE_HTTPS_COOKIE=true` over HTTPS.
+
+## Upgrades and execution boundary
+
+Back up the database and configuration, record the current version, review schema changes, stop the old instance and apply verified migrations before starting the new image. `scripts/init.sql` is a complete schema, not an incremental migration tool. See [Upgrade and recovery](#upgrading).
+
+Tools execute inside the service process. Grant publishing permissions to trusted developers. Preview files and runtime caches are local; multiple service instances require storage and routing design.
+
+For a disposable first experience, use the [demo](#demo).
 
     </script>
 
@@ -1142,7 +1471,7 @@ This document describes a conservative upgrade path for existing NiceTool instan
 ## Before upgrading
 
 1. Back up the MySQL database.
-2. Back up tool source files and uploaded configuration.
+2. Back up runtime configuration and secrets. MySQL contains published tool source and versions; local runtime files are rebuildable caches.
 3. Record the current commit, image tag, and `.env` values.
 4. Read release notes for configuration or schema changes.
 
@@ -1156,16 +1485,24 @@ uv run main.py
 
 For Docker deployments, rebuild the image and restart the container with the same `.env` file.
 
+Startup table creation does not migrate existing columns or indexes. Review `models/` and `scripts/init.sql`, test the required migration against an isolated database, then stop the old instance before applying it. The complete schema script is not an incremental migration tool.
+
+For the demo, restarting can restore changed preset sources as new versions; save custom work under other tool names. See [Demo](#demo).
+
 ## Recovery
 
 If startup fails, restore the previous image or commit and the database backup. Check `logs/app.log` and `logs/error.log` for the failing migration, configuration, or dependency.
+
+## Current development contract
+
+The project has not launched. Update the server, CLI, Skill and documentation together without preserving obsolete behavior. Publishing requires uploaded source and tool names are strictly validated; see [API reference](#api).
 
     </script>
 
     <script type="text/markdown" id="doc-en-US-tool-development">
 # Tool Development
 
-A NiceTool tool is a Python file with a top-level `main()` function. The function renders the UI and handles user interaction.
+A NiceTool tool is a Python file with a top-level synchronous or asynchronous `main()` function callable without arguments. The function renders the UI and handles user interaction.
 
 ## Minimal tool
 
@@ -1174,7 +1511,7 @@ from nicegui import ui
 
 
 def main():
-    ui.label('Hello from NiceTool')
+    ui.label("Hello from NiceTool")
 ```
 
 ## Metadata
@@ -1196,6 +1533,19 @@ tags: demo,query,export
 - Keep logs useful for preview and troubleshooting.
 - Prefer read-only behavior unless the workflow is explicitly designed to write data.
 
+## Tool names and source contract
+
+Project and tool identifiers accept only lowercase ASCII letters, digits, underscores and hyphens. Project names have a maximum length of 100 characters; tool names have a maximum length of 197 and exclude `.py`. Names are validated as supplied: uppercase, whitespace and extensions are rejected with HTTP 422 rather than rewritten. Display titles may use other languages.
+
+Publishing requires Python source with a top-level `main()`. `POST /api/tools/{project}/{name}/publish` requires a JSON body containing `{"content": "..."}`. Missing bodies, missing content and empty strings return HTTP 422; syntax and entry-point errors return HTTP 400. The CLI uploads `tools/{project}/{name}.py` by default, or reads `--file` / `--stdin`. The server never infers publication content from an existing database version or runtime cache.
+
+MySQL stores published source and versions; local `tools/` files are recoverable runtime caches. Restore historical source through version rollback in the admin UI, which creates a new version. Tool details have no revision field and CLI `get --output` writes only the source file. Optimistic concurrency protection is not provided.
+
+
+Keep UI construction inside `main()`. Only call `ui.run()` in a local `if __name__ == "__main__":` block. Importing a module runs its top-level statements, so avoid network calls and writes there. Tools without `main()` are rejected.
+
+Shared resources are exposed through `core.datasource_manager`, `core.variable_manager` and `core.enum_config`. Have an administrator configure them first; do not hard-code real passwords or tokens. Preview execution runs real Python and does not roll back business data writes.
+
     </script>
 
     <script type="text/markdown" id="doc-en-US-api">
@@ -1214,12 +1564,26 @@ When the server is running, open:
 
 | Group | Purpose |
 | --- | --- |
-| `/api/tools` | Tool management, preview, publish, and version operations. |
-| `/api/datasources` | Data source CRUD. |
-| `/client/tool/{token}` | Temporary preview client route. |
-| `/api/init.sh` | CLI environment initialization script. |
+| `/api/tools` | Tool list, details, previews, publishing, state, logs and deletion. |
+| `/api/datasources` | Data source list, details and connection testing. |
+| `/client/tool/{token}` | Temporary preview page. |
+| `/client/tool/{username}/{tool_name}` | Fixed preview page. |
+| `/api/variables` | Variable key metadata. |
+| `/api/init.sh`, `/api/install.sh` | Client initialization and Skill installation scripts. |
+| `/api/downloads` | Skill archive downloads. |
+| `/auth`, `/api/auth/device` | Login, personal tokens and device authorization. |
 
-Use the interactive API pages for exact request and response schemas.
+Use the interactive API pages for exact request and response schemas. Add `PROJECT_PATH` when using a URL prefix. Not every admin operation has a REST endpoint: data source writes and version rollback are handled by admin services, not generic CRUD routes.
+
+Create a temporary preview with `POST /api/tools/preview`, or a fixed preview with `POST /api/tools/preview/{username}/{tool_name}`. Both take JSON with `content`. Fixed preview ownership and the preview scope are checked when authentication is enabled. Preview pages are public by default; project permissions do not make their URLs private.
+
+## Tool names and source contract
+
+Project and tool identifiers accept only lowercase ASCII letters, digits, underscores and hyphens. Project names have a maximum length of 100 characters; tool names have a maximum length of 197 and exclude `.py`. Names are validated as supplied: uppercase, whitespace and extensions are rejected with HTTP 422 rather than rewritten. Display titles may use other languages.
+
+Publishing requires Python source with a top-level `main()`. `POST /api/tools/{project}/{name}/publish` requires a JSON body containing `{"content": "..."}`. Missing bodies, missing content and empty strings return HTTP 422; syntax and entry-point errors return HTTP 400. The CLI uploads `tools/{project}/{name}.py` by default, or reads `--file` / `--stdin`. The server never infers publication content from an existing database version or runtime cache.
+
+MySQL stores published source and versions; local `tools/` files are recoverable runtime caches. Restore historical source through version rollback in the admin UI, which creates a new version. Tool details have no revision field and CLI `get --output` writes only the source file. Optimistic concurrency protection is not provided.
 
     </script>
 
@@ -1247,20 +1611,20 @@ Restart the server after changing the value.
 
 Runtime translations are stored under `core/i18n/`. UI code should wrap visible text with the translation helper so pages can render in the configured language.
 
-## Static landing site
+## Static website
 
-The static landing site uses a browser-side language switcher. It stores the selected language in `localStorage`. The docs page embeds both Chinese and English Markdown content during build.
+The static website uses a browser-side language switcher. It stores the selected language in `localStorage`. The docs page embeds both Chinese and English Markdown content during build.
 
     </script>
 
     <script type="text/markdown" id="doc-en-US-oauth2-auth">
 # Authentication and Project Permissions
 
-NiceTool can run without authentication for local demos, or with OAuth2 authentication for shared deployments.
+NiceTool can run without authentication for local demos, or with local accounts, OIDC or OAuth2 authentication for shared deployments.
 
 ## Authentication switch
 
-`AUTH_ENABLED=false` keeps the instance open for local development and demos. For shared environments, enable authentication and configure the OAuth2 settings.
+`AUTH_ENABLED=false` keeps the instance open for local development and demos. For shared environments, enable authentication. External provider settings are needed only when using external login.
 
 ## Required production settings
 
@@ -1275,6 +1639,18 @@ Users can be assigned access to projects. The tool center shows tools according 
 ## Notes
 
 Keep OAuth client secrets and JWT secrets out of source control. Use `.env` or your deployment platform's secret manager.
+
+## Local accounts and session lifecycle
+
+When no local password account exists, `/auth/login` offers administrator initialization. Administrators create subsequent accounts; temporary passwords must be changed on first login. Web sessions use short-lived JWTs in HttpOnly cookies; there is no refresh token. CLI clients use revocable personal Bearer tokens or browser device authorization.
+
+## Provider and operation scopes
+
+Use `AUTH_PROVIDER_PROFILE=oidc` with issuer discovery and JWKS, or `oauth2` with explicit authorization, token and userinfo endpoints. Callback URLs must include `PROJECT_PATH`. Claim mapping and verified-email settings determine external account binding. See `core/settings.py` for field names.
+
+Project access and operation scopes are separate. Ordinary users default to read and preview on assigned projects; administrators can also publish, roll back and delete. A token is further restricted by its issued scopes. Project access alone does not grant publication rights.
+
+Device authorization starts at `/api/auth/device/start` and polls `/api/auth/device/token`. Include both in custom `AUTH_PUBLIC_PATHS`; the browser confirmation page `/auth/device/authorize` requires login. Preview pages under `/client/tool` are public by default and should not be treated as private data isolation.
 
     </script>
 
@@ -1334,58 +1710,16 @@ uv run python -m unittest discover -s tests
 - Use `session_scope()` for database operations.
 - Add or update tests when behavior changes.
 - Avoid committing local `.env` files or secrets.
-- Keep generated landing docs in sync by running `uv run python scripts/build_landing_docs.py` after documentation changes.
-
-    </script>
-
-    <script type="text/markdown" id="doc-en-US-plans-2026-09-11-project-rbac-design">
-# User Project Access Design
-
-> Historical design note: the current implementation assigns project access by user. For operational usage, see [Authentication and Project Permissions](../oauth2-auth.md).
-
-## Goal
-
-Give administrators a simple way to decide which users can see and run tools for each project.
-
-## Model
-
-A user can be linked to one or more projects. Tool visibility is filtered by the user's project access. Administrators keep full access to management pages.
-
-## Admin experience
-
-The admin console should provide a compact user list, project assignment controls, and clear empty states. Permission changes should be explicit and easy to audit.
-
-## Runtime behavior
-
-When a user opens the tool center, the platform loads the user's project list and filters tools accordingly. Direct tool URLs should apply the same permission checks.
-
-## Migration
-
-Existing local or demo deployments can start with authentication disabled. Shared deployments should enable authentication, create administrators, and assign project access before inviting users.
-
-    </script>
-
-    <script type="text/markdown" id="doc-en-US-plans-2026-09-17-nicetool-skill-optimization-design">
-# NiceTool skill 优化
-
-用户已确认七项优化：安装路径、授权继承、渐进加载、查询快照、数据源参考、静态校验和行为验证。
-
-保持 CLI/API 协议及工具单文件约定，使用实际加载的 skill 目录定位脚本，不改变用户工作目录。
-明确沿用会话已有的目标/环境授权，只有歧义或授权范围变化才澄清。
-把视觉文档分为基线、场景、复杂细节；只改逻辑时不强制加载视觉文档。
-查询分页使用提交时的筛选快照，重置只修改待提交输入。
-增加数据源参考和无执行副作用的 AST 校验脚本，区分静态检查、预览创建与实际交互验证。
-用回归测试覆盖分页快照、补查、失败恢复、用户隔离、静态校验及任意安装位置的 CLI 调用。
-保留用户已有的 `.agents/skills/nicetool` 删除状态，测试引用插件分发源。
+- Keep generated website docs in sync by running `uv run python scripts/build_website_docs.py` after documentation changes.
 
     </script>
 
     <script>
       const titles = {
-        'zh-CN': {'README': 'NiceTool 文档', 'nicetool-skill': 'CLI 与 Skill', 'nicetool-skill-usage': '开发任务示例', 'demo': '先体验：AI 可以帮你创建什么', 'user-guide': '用户与管理员指南', 'configuration': '配置参考', 'deployment': '部署指南', 'upgrading': '升级与恢复', 'tool-development': '工具开发', 'api': 'API 导航', 'internationalization': '国际化', 'oauth2-auth': '认证与项目权限', 'nicetool-token-setup': 'Token 配置', 'contributing': '开发与贡献', 'plans-2026-09-11-project-rbac-design': '用户项目授权设计', 'plans-2026-09-17-nicetool-skill-optimization-design': 'NiceTool skill 优化'},
-        'en-US': {'README': 'NiceTool Documentation', 'nicetool-skill': 'CLI and Skill', 'nicetool-skill-usage': 'Development Task Examples', 'demo': 'Demo: What AI Can Create for You', 'user-guide': 'User and Admin Guide', 'configuration': 'Configuration Reference', 'deployment': 'Deployment Guide', 'upgrading': 'Upgrade and Recovery', 'tool-development': 'Tool Development', 'api': 'API Navigation', 'internationalization': 'Internationalization', 'oauth2-auth': 'Authentication and Project Permissions', 'nicetool-token-setup': 'Token Setup', 'contributing': 'Development and Contributing', 'plans-2026-09-11-project-rbac-design': 'User Project Access Design', 'plans-2026-09-17-nicetool-skill-optimization-design': 'NiceTool skill 优化'}
+        'zh-CN': {'project': '项目介绍与快速开始', 'README': 'NiceTool 文档', 'nicetool-skill': 'CLI 与 Skill', 'nicetool-skill-usage': '开发任务示例', 'demo': '先体验：AI 可以帮你创建什么', 'user-guide': '用户与管理员指南', 'configuration': '配置参考', 'deployment': '部署指南', 'upgrading': '升级与恢复', 'tool-development': '工具开发', 'api': 'API 导航', 'internationalization': '国际化', 'oauth2-auth': '认证与项目权限', 'nicetool-token-setup': 'Token 配置', 'contributing': '开发与贡献'},
+        'en-US': {'project': 'Overview and quick start', 'README': 'NiceTool Documentation', 'nicetool-skill': 'CLI and Skill', 'nicetool-skill-usage': 'Development Task Examples', 'demo': 'Demo: What AI Can Create for You', 'user-guide': 'User and Admin Guide', 'configuration': 'Configuration Reference', 'deployment': 'Deployment Guide', 'upgrading': 'Upgrade and Recovery', 'tool-development': 'Tool Development', 'api': 'API Navigation', 'internationalization': 'Internationalization', 'oauth2-auth': 'Authentication and Project Permissions', 'nicetool-token-setup': 'Token Setup', 'contributing': 'Development and Contributing'}
       };
-      const defaultDoc = 'README';
+      const defaultDoc = 'project';
       let currentDoc = defaultDoc;
       let currentLanguage = 'zh-CN';
       const escapeHtml = (value) => value.replace(/[&<>"]/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[char]);
@@ -1412,9 +1746,9 @@ Existing local or demo deployments can start with authentication disabled. Share
           const rows = table.map((row) => row.split('|').slice(1, -1).map((cell) => cell.trim()));
           const header = rows[0];
           const body = rows.slice(2);
-          html += '<table><thead><tr>' + header.map((cell) => `<th>${inline(cell)}</th>`).join('') + '</tr></thead><tbody>';
+          html += '<div class="table-scroll"><table><thead><tr>' + header.map((cell) => `<th>${inline(cell)}</th>`).join('') + '</tr></thead><tbody>';
           html += body.map((row) => '<tr>' + row.map((cell) => `<td>${inline(cell)}</td>`).join('') + '</tr>').join('');
-          html += '</tbody></table>';
+          html += '</tbody></table></div>';
           table = [];
         };
         const flushBlocks = () => { flushList(); flushTable(); };
@@ -1454,13 +1788,20 @@ Existing local or demo deployments can start with authentication disabled. Share
         const source = document.getElementById(`doc-${currentLanguage}-${currentDoc}`);
         document.getElementById('doc-title').textContent = titles[currentLanguage][currentDoc];
         document.getElementById('content').innerHTML = renderMarkdown(source.textContent);
-        document.querySelectorAll('.doc-link').forEach((link) => link.classList.toggle('active', link.dataset.doc === currentDoc));
+        document.querySelectorAll('.doc-link').forEach((link) => {
+          const active = link.dataset.doc === currentDoc;
+          link.classList.toggle('active', active);
+          if (active) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
+        });
+        document.querySelector('.directory-toggle').setAttribute('aria-expanded', 'false');
+        document.querySelector('.docs-directory').classList.remove('open');
+        document.title = `${titles[currentLanguage][currentDoc]} — NiceTool`;
         history.replaceState(null, '', `#${currentDoc}`);
       }
 
       const messages = {
-        'zh-CN': { 'nav.features': '平台能力', 'nav.workflow': '工作流', 'nav.docs': '文档' },
-        'en-US': { 'nav.features': 'Capabilities', 'nav.workflow': 'Workflow', 'nav.docs': 'Docs' }
+        'zh-CN': { skip:'跳至内容', directory:'文档目录', 'nav.demos':'流程演示', 'nav.workflow':'如何工作', 'nav.docs':'使用文档', 'nav.start':'开始体验 ↗' },
+        'en-US': { skip:'Skip to content', directory:'Documentation', 'nav.demos':'See it in action', 'nav.workflow':'How it works', 'nav.docs':'Documentation', 'nav.start':'Get started ↗' }
       };
       function setLanguage(lang) {
         currentLanguage = messages[lang] ? lang : 'zh-CN';
@@ -1471,17 +1812,41 @@ Existing local or demo deployments can start with authentication disabled. Share
         document.querySelectorAll('[data-doc-title]').forEach((node) => {
           node.textContent = titles[currentLanguage][node.dataset.docTitle] || node.textContent;
         });
-        document.querySelectorAll('[data-lang]').forEach((button) => {
-          button.classList.toggle('active', button.dataset.lang === currentLanguage);
-        });
-        localStorage.setItem('nicetool-landing-language', currentLanguage);
+        const toggle = document.querySelector('[data-language-toggle]');
+        toggle.textContent = currentLanguage === 'en-US' ? '中文' : 'EN';
+        toggle.setAttribute('aria-label', currentLanguage === 'en-US' ? '切换为中文' : 'Switch to English');
+        document.querySelector('.docs-directory').setAttribute('aria-label', messages[currentLanguage].directory);
+        try { localStorage.setItem('nicetool-website-language', currentLanguage); } catch { /* Optional preference. */ }
         showDoc(currentDoc);
       }
 
-      document.querySelectorAll('[data-lang]').forEach((button) => button.addEventListener('click', () => setLanguage(button.dataset.lang)));
+      document.querySelector('[data-language-toggle]').addEventListener('click', () => setLanguage(currentLanguage === 'zh-CN' ? 'en-US' : 'zh-CN'));
+      document.querySelector('.directory-toggle').addEventListener('click', (event) => {
+        const open = document.querySelector('.docs-directory').classList.toggle('open');
+        event.currentTarget.setAttribute('aria-expanded', String(open));
+      });
+      document.querySelector('.menu-toggle').addEventListener('click', (event) => {
+        const open = document.getElementById('nav-links').classList.toggle('open');
+        event.currentTarget.setAttribute('aria-expanded', String(open));
+      });
       document.querySelectorAll('.doc-link').forEach((link) => link.addEventListener('click', () => showDoc(link.dataset.doc)));
+      document.getElementById('content').addEventListener('click', (event) => {
+        const anchor = event.target.closest('a');
+        if (!anchor) return;
+        const href = anchor.getAttribute('href');
+        if (href && href.startsWith('#') && titles[currentLanguage][href.slice(1)]) {
+          event.preventDefault();
+          showDoc(href.slice(1));
+        }
+      });
+      window.addEventListener('hashchange', () => {
+        const slug = decodeURIComponent(location.hash.slice(1));
+        if (titles[currentLanguage][slug]) showDoc(slug);
+      });
       currentDoc = decodeURIComponent(location.hash.slice(1)) || defaultDoc;
-      setLanguage(localStorage.getItem('nicetool-landing-language') || (navigator.language === 'zh-CN' ? 'zh-CN' : 'en-US'));
+      let savedLanguage;
+      try { savedLanguage = localStorage.getItem('nicetool-website-language'); } catch { /* Optional preference. */ }
+      setLanguage(savedLanguage || (navigator.language.toLowerCase().startsWith('zh') ? 'zh-CN' : 'en-US'));
     </script>
   </body>
 </html>

@@ -6,7 +6,15 @@ NiceTool tools are single-file Python modules with a top-level `main()` function
 
 ## Install the Skill
 
-Copy the Skill package into the agent's Skill search directory. Keep scripts and references together; do not copy only `SKILL.md`.
+For an instance with an enabled default client environment, run the installer from your target project after checking that you trust the instance:
+
+```bash
+curl -fsSL https://tools.example.com/api/install.sh | sh -s -- --local
+```
+
+Use `--global` for a user-level installation, `--target /path/to/project` for a specific project, `--force` to replace an existing Skill, or `--skip-auth` to skip browser authorization. Existing client configuration is preserved. An authenticated instance can open browser device authorization; the demo does not require a token. Environment names, URLs and token-variable names come from the admin environment page.
+
+Alternatively, copy the Skill package into the agent's Skill search directory. Keep scripts and references together; do not copy only `SKILL.md`.
 
 ```bash
 cp -R plugins/nicetool/skills/nicetool .agents/skills/nicetool

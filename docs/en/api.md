@@ -13,12 +13,18 @@ When the server is running, open:
 
 | Group | Purpose |
 | --- | --- |
-| `/api/tools` | Tool management, preview, publish, and version operations. |
-| `/api/datasources` | Data source CRUD. |
-| `/client/tool/{token}` | Temporary preview client route. |
-| `/api/init.sh` | CLI environment initialization script. |
+| `/api/tools` | Tool list, details, previews, publishing, state, logs and deletion. |
+| `/api/datasources` | Data source list, details and connection testing. |
+| `/client/tool/{token}` | Temporary preview page. |
+| `/client/tool/{username}/{tool_name}` | Fixed preview page. |
+| `/api/variables` | Variable key metadata. |
+| `/api/init.sh`, `/api/install.sh` | Client initialization and Skill installation scripts. |
+| `/api/downloads` | Skill archive downloads. |
+| `/auth`, `/api/auth/device` | Login, personal tokens and device authorization. |
 
-Use the interactive API pages for exact request and response schemas.
+Use the interactive API pages for exact request and response schemas. Add `PROJECT_PATH` when using a URL prefix. Not every admin operation has a REST endpoint: data source writes and version rollback are handled by admin services, not generic CRUD routes.
+
+Create a temporary preview with `POST /api/tools/preview`, or a fixed preview with `POST /api/tools/preview/{username}/{tool_name}`. Both take JSON with `content`. Fixed preview ownership and the preview scope are checked when authentication is enabled. Preview pages are public by default; project permissions do not make their URLs private.
 
 ## Tool names and source contract
 

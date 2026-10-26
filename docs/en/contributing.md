@@ -28,4 +28,4 @@ uv run python -m unittest discover -s tests
 - Use `session_scope()` for database operations.
 - Add or update tests when behavior changes.
 - Avoid committing local `.env` files or secrets.
-- Keep generated landing docs in sync by running `uv run python scripts/build_landing_docs.py` after documentation changes.
+- Keep generated website docs in sync by running `uv run python scripts/build_website_docs.py` after documentation changes.

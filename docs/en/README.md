@@ -22,4 +22,8 @@ For the first experience, read [Demo: what AI can create for you](demo.md). For 
 
 ## Repository layout
 
-The application code lives in `public/`, `service/`, `models/`, `core/`, and `component/`. The static landing site lives in `landing/`. Documentation source files live under `docs/`; English documentation lives under `docs/en/`.
+The application code lives in `public/`, `service/`, `models/`, `core/`, and `component/`. The static website lives in `website/`. Documentation source files live under `docs/`; English documentation lives under `docs/en/`.
+
+## Historical designs
+
+`docs/plans/` contains historical design notes, not the current configuration or API contract. These notes are retained in the repository and excluded from the website's user documentation. Use current guides and the running instance's OpenAPI schema for integrations.

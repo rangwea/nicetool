@@ -20,7 +20,7 @@ logs/
 
 .DS_Store
 
-tools/
+/tools/
 .nicegui/
 
 # Local caches and generated downloads

@@ -136,6 +136,14 @@ Choose a starting point from the [documentation index](docs/en/README.md):
 - [API reference](docs/en/api.md)
 - [Development and contributing](docs/en/contributing.md)
 
+## Project website
+
+The bilingual static site lives in [`website/`](website/README.md), with real GIFs of preview and tool usage using synthetic data. Codex Desktop creation and publication use explicitly labeled AI-generated illustrations; workspace interactions are real recordings.
+
+```bash
+python3 -m http.server 8088 --bind 127.0.0.1 --directory website
+```
+
 ## Developer notes
 
 The platform uses Python, NiceGUI, FastAPI, and MySQL. Tool source versions are stored in the database, and `tools/` is a rebuildable runtime cache. Tool code executes within the service process, so publishing permissions should be granted to trusted developers.
