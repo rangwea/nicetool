@@ -8,7 +8,7 @@
 
 | 目标 | 文档 |
 | --- | --- |
-| 安装并运行 | [README](../README.md) |
+| 安装并运行 | [README](../README.zh-CN.md) |
 | 容器、反向代理、升级和备份 | [部署指南](deployment.md) |
 | 界面语言与翻译扩展 | [国际化](internationalization.md) |
 | 配置环境变量 | [配置参考](configuration.md) |

@@ -2,7 +2,7 @@
 
 ## Local startup
 
-Install Python 3.13+, uv and MySQL as described in the [quick start](../README.en.md). Create the database, configure `.env`, then run:
+Install Python 3.13+, uv and MySQL as described in the [quick start](../README.md). Create the database, configure `.env`, then run:
 
 ```bash
 uv sync --locked

@@ -4,7 +4,7 @@
 
 ## 本地运行
 
-按照[快速开始](../README.md)准备 Python 3.13+、uv 和 MySQL。执行 `uv sync --locked` 安装锁定依赖，再执行 `uv run main.py`。MySQL 数据库需预先创建；启动建表只创建缺失的表，不负责变更已有表的列或索引。
+按照[快速开始](../README.zh-CN.md)准备 Python 3.13+、uv 和 MySQL。执行 `uv sync --locked` 安装锁定依赖，再执行 `uv run main.py`。MySQL 数据库需预先创建；启动建表只创建缺失的表，不负责变更已有表的列或索引。
 
 ## Docker
 

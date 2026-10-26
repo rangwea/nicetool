@@ -79,7 +79,7 @@ def website_links(markdown: str, current: Path) -> str:
                 return f"[{label}](#{slug_for(Path(source))})"
         if resolved.startswith("../") and Path(resolved).name in {
             "README.md",
-            "README.en.md",
+            "README.zh-CN.md",
         }:
             return f"[{label}](#project)"
         if resolved in {"../LICENSE", "LICENSE"}:
@@ -91,14 +91,20 @@ def website_links(markdown: str, current: Path) -> str:
 
 def project_content(markdown: str) -> str:
     """Omit repository badges and language navigation from the website article."""
+    markdown = re.sub(
+        r"<!-- readme-media:start -->.*?<!-- readme-media:end -->",
+        "",
+        markdown,
+        flags=re.DOTALL,
+    )
     return "\n".join(
         line
         for line in markdown.split("\n")
         if not line.startswith("[![")
         and line
         not in {
-            "简体中文 | [English](README.en.md)",
-            "[简体中文](README.md) | English",
+            "[English](README.md) | 简体中文",
+            "English | [简体中文](README.zh-CN.md)",
         }
     )
 
@@ -134,7 +140,7 @@ def load_docs() -> list[LocalizedDoc]:
             project_content((ROOT / filename).read_text(encoding="utf-8")),
             Path("../README.md"),
         )
-        for lang, filename in (("zh-CN", "README.md"), ("en-US", "README.en.md"))
+        for lang, filename in (("zh-CN", "README.zh-CN.md"), ("en-US", "README.md"))
     }
     docs.insert(
         0,
