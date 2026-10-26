@@ -3,7 +3,18 @@ name = "nicetool"
 version = "0.1.0"
 description = "NiceTool platform built with FastAPI and NiceGUI"
 readme = "README.md"
+license = "MIT"
+license-files = ["LICENSE"]
 requires-python = ">=3.13"
+keywords = [
+    "ai-tools",
+    "internal-tools",
+    "low-code",
+    "nicegui",
+    "fastapi",
+    "self-hosted",
+    "tool-management",
+]
 dependencies = [
     "loguru>=0.7.0",
     "nicegui>=3.11.0",

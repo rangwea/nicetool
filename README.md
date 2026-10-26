@@ -1,5 +1,12 @@
 # NiceTool
 
+简体中文 | [English](README.en.md)
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.13%2B-3776AB?logo=python&logoColor=white)](pyproject.toml)
+[![NiceGUI](https://img.shields.io/badge/UI-NiceGUI-5898D4)](https://nicegui.io/)
+[![FastAPI](https://img.shields.io/badge/API-FastAPI-009688?logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+
 一站式 AI 工具平台，让想法成为团队可用的工具。
 
 用自然语言描述需求，让 AI 创建工具，在浏览器中预览验证，再发布到团队的工具中心。NiceTool 将数据接入、工具生成、预览调试、发布共享、版本管理和访问授权串成完整流程，让工具从一次性的需求变成可以持续使用和改进的团队资源。
@@ -138,6 +145,10 @@ docker run -d --name nicetool --env-file .env -p 8000:8000 nicetool
 
 欢迎提交问题报告、文档改进和聚焦的代码修改。报告问题时提供复现步骤、版本和脱敏日志；行为变更请附测试及迁移说明。项目使用 uv 管理依赖，具体命令见[贡献指南](docs/contributing.md)。
 
+## 项目标签
+
+`python` · `nicegui` · `fastapi` · `ai-tools` · `ai-agent` · `internal-tools` · `low-code` · `tool-management` · `self-hosted` · `mysql` · `mongodb` · `developer-tools`
+
 ## 许可证
 
-当前仓库未提供 `LICENSE` 文件，许可证尚未声明。
+本项目采用 [MIT 许可证](LICENSE)。Copyright © 2026 wikia。
